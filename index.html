@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PELC Science AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="pelc-science-ai.png" />
+</head>
+<body>
+
+  <!-- 🔬 Splash / Loading Screen -->
+  <div id="splash">
+    <div class="splash-inner">
+      <img src="pelc-science-ai.png" alt="PELC Science AI Logo" class="logo" />
+      <h1 class="brand">PELC <span>Science AI</span></h1>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+      <p class="loading-text">Initializing science engine...</p>
+    </div>
+  </div>
+
+  <!-- 🏠 Main Website -->
+  <div id="app" class="hidden">
+
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <img src="pelc-science-ai.png" alt="logo" />
+        <span>PELC Science AI</span>
+      </div>
+      <nav>
+        <a href="#assistant">Assistant</a>
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Explore Science with <span>AI</span></h1>
+      <p>Your intelligent companion for physics, chemistry, biology, and mathematics.</p>
+      <a href="#assistant" class="btn">Ask a Question →</a>
+    </section>
+
+    <!-- 🤖 AI Science Assistant -->
+    <section id="assistant" class="section">
+      <h2>🤖 AI Science Assistant</h2>
+      <div class="chat-box">
+        <div id="chat-log" class="chat-log">
+          <div class="msg bot">Hello! Ask me anything about science. 🔬</div>
+        </div>
+        <div class="chat-input">
+          <input id="user-input" type="text" placeholder="e.g. What is photosynthesis?" />
+          <button id="send-btn">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 🧪 Science Tools -->
+    <section id="tools" class="section">
+      <h2>🧪 Science Tools</h2>
+      <div class="tool-grid">
+        <div class="tool-card physics">
+          <h3>⚛️ Physics</h3>
+          <p>Motion, forces, energy & more.</p>
+        </div>
+        <div class="tool-card chemistry">
+          <h3>🧪 Chemistry</h3>
+          <p>Elements, reactions, molecules.</p>
+        </div>
+        <div class="tool-card biology">
+          <h3>🧬 Biology</h3>
+          <p>Cells, genetics, ecosystems.</p>
+        </div>
+        <div class="tool-card math">
+          <h3>📐 Mathematics</h3>
+          <p>Algebra, calculus, geometry.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section about">
+      <h2>About PELC Science AI</h2>
+      <p>PELC Science AI is an open project bringing futuristic science learning to everyone — powered by AI and hosted on GitHub Pages.</p>
+    </section>
+
+    <footer>
+      <p>© 2025 PELC Science AI — Built with ❤️ on GitHub</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
