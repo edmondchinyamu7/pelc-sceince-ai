@@ -1,95 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PELC Science AI</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="pelc-science-ai.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0f1c">
+  <meta name="description" content="PELC Science AI helps students explore science through lessons, formulas, calculators, and quizzes.">
+  <title>PELC Science AI | Learn Physics</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-
-  <!-- 🔬 Splash / Loading Screen -->
-  <div id="splash">
-    <div class="splash-inner">
-      <img src="pelc-science-ai.png" alt="PELC Science AI Logo" class="logo" />
-      <h1 class="brand">PELC <span>Science AI</span></h1>
-      <div class="loader-bar"><div class="loader-fill"></div></div>
-      <p class="loading-text">Initializing science engine...</p>
+  <!-- Splash screen: shown for approximately 10 seconds -->
+  <div class="splash-screen" id="splash-screen" aria-label="Loading PELC Science AI">
+    <div class="splash-content">
+      <img src="pelc-science-ai.png" alt="PELC Science AI logo" class="splash-logo"
+           onerror="this.style.display='none'; document.getElementById('fallback-logo').hidden=false;">
+      <div class="fallback-logo" id="fallback-logo" hidden>PELC<span>SCIENCE AI</span></div>
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+      <h1>PELC <span>SCIENCE AI</span></h1>
+      <p>Explore. Understand. Discover.</p>
+      <div class="loading-track"><div class="loading-progress"></div></div>
+      <p class="loading-caption">Preparing your science lab...</p>
     </div>
   </div>
 
-  <!-- 🏠 Main Website -->
-  <div id="app" class="hidden">
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="PELC Science AI home">
+      <img src="pelc-science-ai.png" alt="" class="brand-logo"
+           onerror="this.style.display='none';">
+      <span>PELC <b>SCIENCE AI</b></span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="main-nav">
+      <a href="#home">Home</a>
+      <a href="#assistant">AI Assistant</a>
+      <a href="#tools">Tools</a>
+      <a href="#physics-lab">Physics Lab</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
 
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="nav-brand">
-        <img src="pelc-science-ai.png" alt="logo" />
-        <span>PELC Science AI</span>
-      </div>
-      <nav>
-        <a href="#assistant">Assistant</a>
-        <a href="#tools">Tools</a>
-        <a href="#about">About</a>
-      </nav>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-      <h1>Explore Science with <span>AI</span></h1>
-      <p>Your intelligent companion for physics, chemistry, biology, and mathematics.</p>
-      <a href="#assistant" class="btn">Ask a Question →</a>
-    </section>
-
-    <!-- 🤖 AI Science Assistant -->
-    <section id="assistant" class="section">
-      <h2>🤖 AI Science Assistant</h2>
-      <div class="chat-box">
-        <div id="chat-log" class="chat-log">
-          <div class="msg bot">Hello! Ask me anything about science. 🔬</div>
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="status-dot"></span> YOUR DIGITAL SCIENCE PARTNER</span>
+        <h1>Understand science.<br><span class="gradient-text">Unlock your potential.</span></h1>
+        <p>Explore science concepts, practise calculations and test your knowledge with PELC Science AI.</p>
+        <div class="hero-actions">
+          <a class="button primary-button" href="#physics-lab">Explore Physics Lab <span>↗</span></a>
+          <a class="button secondary-button" href="#assistant">Ask a question</a>
         </div>
-        <div class="chat-input">
-          <input id="user-input" type="text" placeholder="e.g. What is photosynthesis?" />
-          <button id="send-btn">Send</button>
+        <div class="hero-stats">
+          <div><strong>4</strong><span>Learning features</span></div>
+          <div><strong>7+</strong><span>Physics topics</span></div>
+          <div><strong>24/7</strong><span>Learn at your pace</span></div>
         </div>
       </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="science-orb"><div class="orb-core">P<span>AI</span></div><i class="orb-dot dot-a"></i><i class="orb-dot dot-b"></i><i class="orb-dot dot-c"></i></div>
+        <div class="floating-chip chip-top">F = ma</div>
+        <div class="floating-chip chip-bottom">E = mc²</div>
+        <div class="visual-caption"><span class="status-dot"></span> SCIENCE MODE: ON</div>
+      </div>
     </section>
 
-    <!-- 🧪 Science Tools -->
-    <section id="tools" class="section">
-      <h2>🧪 Science Tools</h2>
+    <section class="section assistant-section" id="assistant">
+      <div class="section-heading">
+        <span class="eyebrow">LEARN WITH GUIDANCE</span>
+        <h2>Science <span class="gradient-text">AI Assistant</span></h2>
+        <p>Ask a science question and explore a guided explanation.</p>
+      </div>
+      <div class="assistant-card">
+        <div class="assistant-top"><div class="assistant-avatar">✦</div><div><strong>PELC Science Assistant</strong><span class="assistant-status">Learning helper · Demo mode</span></div><span class="online-pill">ONLINE</span></div>
+        <div class="chat-window" id="chat-window" aria-live="polite">
+          <div class="chat-message bot-message"><span class="message-icon">✦</span><div><strong>Welcome!</strong><p>Ask me about physics, chemistry, biology or mathematics. I can answer a few built-in example questions in this demo.</p></div></div>
+        </div>
+        <div class="suggestion-row">
+          <button class="suggestion-chip" data-question="Explain Newton's second law">Newton's second law</button>
+          <button class="suggestion-chip" data-question="What is photosynthesis?">Photosynthesis</button>
+          <button class="suggestion-chip" data-question="Explain Ohm's law">Ohm's law</button>
+        </div>
+        <form class="chat-form" id="chat-form">
+          <label class="sr-only" for="chat-input">Ask a science question</label>
+          <input id="chat-input" type="text" placeholder="Ask a science question..." autocomplete="off" required>
+          <button class="send-button" type="submit" aria-label="Send question">➤</button>
+        </form>
+        <p class="demo-note">Note: this assistant uses sample responses. Connect an AI backend later for live AI answers.</p>
+      </div>
+    </section>
+
+    <section class="section tools-section" id="tools">
+      <div class="section-heading">
+        <span class="eyebrow">YOUR LEARNING TOOLKIT</span>
+        <h2>Explore science <span class="gradient-text">tools</span></h2>
+        <p>Choose a subject and start learning one step at a time.</p>
+      </div>
       <div class="tool-grid">
-        <div class="tool-card physics">
-          <h3>⚛️ Physics</h3>
-          <p>Motion, forces, energy & more.</p>
-        </div>
-        <div class="tool-card chemistry">
-          <h3>🧪 Chemistry</h3>
-          <p>Elements, reactions, molecules.</p>
-        </div>
-        <div class="tool-card biology">
-          <h3>🧬 Biology</h3>
-          <p>Cells, genetics, ecosystems.</p>
-        </div>
-        <div class="tool-card math">
-          <h3>📐 Mathematics</h3>
-          <p>Algebra, calculus, geometry.</p>
-        </div>
+        <a class="tool-card" href="#physics-lab"><div class="tool-icon cyan-icon">↗</div><h3>Physics</h3><p>Motion, energy, electricity, waves and more.</p><span class="card-link">Open Physics Lab →</span></a>
+        <a class="tool-card" href="#assistant"><div class="tool-icon purple-icon">⚗</div><h3>Chemistry</h3><p>Explore atoms, reactions, elements and compounds.</p><span class="card-link">Ask the assistant →</span></a>
+        <a class="tool-card" href="#assistant"><div class="tool-icon green-icon">⌬</div><h3>Biology</h3><p>Discover cells, ecosystems and living systems.</p><span class="card-link">Ask the assistant →</span></a>
+        <a class="tool-card" href="#assistant"><div class="tool-icon orange-icon">∑</div><h3>Mathematics</h3><p>Practise calculations and strengthen problem-solving.</p><span class="card-link">Ask the assistant →</span></a>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="section about">
-      <h2>About PELC Science AI</h2>
-      <p>PELC Science AI is an open project bringing futuristic science learning to everyone — powered by AI and hosted on GitHub Pages.</p>
+    <!-- PHYSICS PHASES A-D -->
+    <section class="section physics-section" id="physics-lab">
+      <div class="section-heading">
+        <span class="eyebrow">PHYSICS LEARNING SYSTEM · PHASES A–D</span>
+        <h2>Welcome to the <span class="gradient-text">Physics Lab</span></h2>
+        <p>Learn concepts, understand formulas, solve problems and test your knowledge.</p>
+      </div>
+
+      <div class="physics-tabs" role="tablist" aria-label="Physics learning sections">
+        <button class="physics-tab active" data-tab="notes" role="tab" aria-selected="true"> <span>01</span> Topic Library</button>
+        <button class="physics-tab" data-tab="formulas" role="tab" aria-selected="false"><span>02</span> Formula Library</button>
+        <button class="physics-tab" data-tab="calculator" role="tab" aria-selected="false"><span>03</span> Calculators</button>
+        <button class="physics-tab" data-tab="quiz" role="tab" aria-selected="false"><span>04</span> Physics Quiz</button>
+      </div>
+
+      <div class="physics-panel active" id="panel-notes" role="tabpanel">
+        <div class="panel-heading"><div><span class="eyebrow">PHASE A</span><h3>Physics topic library</h3><p>Select a topic to read its notes and key facts.</p></div><span class="panel-number">A</span></div>
+        <div class="topic-layout">
+          <div class="topic-list" id="topic-list" aria-label="Physics topics"></div>
+          <article class="topic-detail" id="topic-detail" aria-live="polite"></article>
+        </div>
+      </div>
+
+      <div class="physics-panel" id="panel-formulas" role="tabpanel" hidden>
+        <div class="panel-heading"><div><span class="eyebrow">PHASE B</span><h3>Formula library</h3><p>Review equations, symbols, units and worked examples.</p></div><span class="panel-number">B</span></div>
+        <div class="formula-filters" id="formula-filters" aria-label="Filter formulas"></div>
+        <div class="formula-grid" id="formula-grid"></div>
+      </div>
+
+      <div class="physics-panel" id="panel-calculator" role="tabpanel" hidden>
+        <div class="panel-heading"><div><span class="eyebrow">PHASE C</span><h3>Physics calculators</h3><p>Choose a calculation, enter known values and solve.</p></div><span class="panel-number">C</span></div>
+        <div class="calculator-layout">
+          <form class="calculator-card" id="physics-calculator-form">
+            <label for="calculator-select">Choose a calculation</label>
+            <select id="calculator-select">
+              <optgroup label="Motion and forces">
+                <option value="speed">Average speed</option><option value="distance">Distance travelled</option><option value="time">Time taken</option>
+                <option value="acceleration">Acceleration</option><option value="force">Force (Newton's second law)</option><option value="mass">Mass from force and acceleration</option>
+              </optgroup>
+              <optgroup label="Work and energy">
+                <option value="work">Work done</option><option value="power">Power</option><option value="kinetic">Kinetic energy</option><option value="potential">Gravitational potential energy</option>
+              </optgroup>
+              <optgroup label="Electricity">
+                <option value="ohm">Voltage (Ohm's law)</option><option value="current">Current (Ohm's law)</option><option value="resistance">Resistance (Ohm's law)</option><option value="electricPower">Electrical power</option>
+              </optgroup>
+              <optgroup label="Waves and matter">
+                <option value="wave">Wave speed</option><option value="density">Density</option><option value="pressure">Pressure</option>
+              </optgroup>
+            </select>
+            <div class="calculator-description" id="calculator-description"></div>
+            <div class="calculator-fields" id="calculator-fields"></div>
+            <button class="button primary-button full-button" type="submit">Calculate answer <span>→</span></button>
+            <button class="button secondary-button full-button" type="reset" id="calculator-reset">Reset values</button>
+          </form>
+          <div class="calculator-result-card">
+            <span class="eyebrow">YOUR SOLUTION</span>
+            <div class="result-symbol">ƒ(x)</div>
+            <div id="calculator-result" aria-live="polite"><h3>Ready when you are</h3><p>Enter your known values and select Calculate answer to see the formula and result.</p></div>
+            <div class="calculator-tip"><strong>Study tip</strong><p>Write down the known values and convert them to compatible SI units before calculating.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="physics-panel" id="panel-quiz" role="tabpanel" hidden>
+        <div class="panel-heading"><div><span class="eyebrow">PHASE D</span><h3>Test your physics knowledge</h3><p>Choose an answer, get instant feedback and learn from explanations.</p></div><span class="panel-number">D</span></div>
+        <div class="quiz-card" id="quiz-card">
+          <div class="quiz-meta"><span id="quiz-topic">GENERAL PHYSICS</span><span id="quiz-progress">Question 1 of 10</span></div>
+          <div class="quiz-progress-track"><div id="quiz-progress-bar"></div></div>
+          <h3 id="quiz-question">Loading question...</h3>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-feedback" id="quiz-feedback" aria-live="polite"></div>
+          <div class="quiz-footer"><span id="quiz-score">Score: 0</span><button class="button primary-button" id="quiz-next" disabled>Next question →</button></div>
+        </div>
+        <p class="quiz-footnote">You can retry the quiz when you finish. Your score is shown on this device during the current session.</p>
+      </div>
     </section>
 
-    <footer>
-      <p>© 2026 PELC Science AI</p>
-    </footer>
-  </div>
+    <section class="section about-section" id="about">
+      <div class="about-card"><div class="about-mark">P<span>AI</span></div><div><span class="eyebrow">ABOUT THIS PROJECT</span><h2>Built to make learning <span class="gradient-text">more accessible.</span></h2><p>PELC Science AI is a learning project by POPE EAD LEGACY COMPANY. This website provides educational notes and practice tools to help learners build confidence in science.</p><p class="demo-note">Educational content is a learning aid. Always follow your teacher's guidance and verify important results.</p></div></div>
+    </section>
+  </main>
 
-  <script src="script.js"></script>
+  <footer class="site-footer"><a class="footer-brand" href="#home">PELC SCIENCE AI</a><p>© 2026 PELC Science AI</p><a href="#home">Back to top ↑</a></footer>
 </body>
 </html>
