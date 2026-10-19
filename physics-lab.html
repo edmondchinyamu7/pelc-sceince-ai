@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Lab | PELC Science AI</title>
+  <meta name="description" content="Learn physics with explanations, formulas, interactive calculators and quizzes.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .physics-hero {
+      padding: 65px 7%;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(122,92,255,.16), transparent 40%),
+        radial-gradient(ellipse at 15% 10%, rgba(0,212,255,.10), transparent 45%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .physics-hero h1 {
+      margin: 15px 0;
+      font-size: clamp(35px, 5vw, 56px);
+      line-height: 1.15;
+    }
+
+    .physics-hero h1 span { color: var(--cyan); }
+
+    .physics-hero p {
+      max-width: 680px;
+      color: var(--muted);
+    }
+
+    .physics-hero .hero-buttons { margin-top: 24px; }
+
+    .physics-layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .physics-sidebar {
+      position: sticky;
+      top: 95px;
+      padding: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .physics-sidebar h3 {
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .physics-sidebar a {
+      display: block;
+      padding: 10px 8px;
+      margin: 3px 0;
+      border-radius: 7px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .physics-sidebar a:hover {
+      background: var(--surface-light);
+      color: var(--cyan);
+    }
+
+    .physics-content { min-width: 0; }
+
+    .physics-section {
+      margin-bottom: 32px;
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      scroll-margin-top: 95px;
+    }
+
+    .physics-section h2 {
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+
+    .physics-section h2 span { color: var(--cyan); }
+
+    .physics-section h3 {
+      margin: 18px 0 8px;
+      font-size: 17px;
+    }
+
+    .physics-section p,
+    .physics-section li {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .physics-section ul {
+      padding-left: 21px;
+      margin: 10px 0;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 20px;
+    }
+
+    .topic-card {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #0b1424;
+    }
+
+    .topic-card h3 { margin-top: 0; }
+
+    .topic-card .topic-formula {
+      display: inline-block;
+      margin-top: 10px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .formula-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .formula-row {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .formula-row strong { display: block; }
+
+    .formula {
+      display: block;
+      margin: 7px 0;
+      color: var(--cyan);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .calc-card {
+      padding: 20px;
+      background: #0b1424;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .calc-card h3 { margin-top: 0; }
+
+    .calc-card label,
+    .quiz-question label {
+      display: block;
+      margin: 12px 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .calc-card input,
+    .calc-card select,
+    .quiz-question select {
+      width: 100%;
+      min-height: 43px;
+      padding: 10px;
+      color: var(--text);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    .calc-card input:focus,
+    .calc-card select:focus,
+    .quiz-question select:focus {
+      outline: 1px solid var(--cyan);
+    }
+
+    .calc-button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      color: #06101c;
+      background: var(--cyan);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .calc-button:hover { filter: brightness(1.1); }
+
+    .calc-result {
+      min-height: 48px;
+      margin-top: 13px;
+      padding: 12px;
+      background: rgba(0,212,255,.07);
+      border-radius: 8px;
+      color: var(--cyan);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .calc-result.error { color: #ff9d9d; }
+
+    .quiz-question {
+      margin: 18px 0;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .quiz-question p {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-size: 13px;
+    }
+
+    .quiz-feedback.correct { color: #70e6a0; }
+    .quiz-feedback.wrong { color: #ffaaaa; }
+
+    .quiz-score {
+      margin-top: 20px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .note {
+      margin-top: 15px;
+      padding: 14px;
+      border-left: 3px solid var(--purple);
+      background: rgba(122,92,255,.08);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--cyan);
+    }
+
+    @media (max-width: 800px) {
+      .physics-layout { grid-template-columns: 1fr; }
+
+      .physics-sidebar {
+        position: static;
+      }
+
+      .physics-sidebar nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .physics-sidebar a {
+        padding: 8px 10px;
+        background: var(--background);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .physics-hero { padding: 48px 6%; }
+
+      .topic-grid,
+      .calculator-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .physics-section { padding: 19px; }
+
+      .physics-section h2 { font-size: 21px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">P</span>
+      <span>PELC <strong>SCIENCE AI</strong></span>
+    </a>
+
+    <button class="menu-toggle" id="menu-toggle"
+      aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav id="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="labs.html" class="active">Labs</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="physics-hero">
+    <span class="section-label">LAB 01 · PHYSICAL SCIENCE</span>
+    <h1>Welcome to the <span>Physics Lab</span></h1>
+    <p>
+      Discover how the universe works. Learn the principles of
+      motion, forces, energy, electricity and waves through
+      explanations, formulas, examples and interactive calculators.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#topics">Start Learning ↓</a>
+      <a class="btn btn-secondary" href="#calculators">Try Calculators</a>
+    </div>
+  </section>
+
+  <main class="section">
+    <div class="physics-layout">
+
+      <!-- Sidebar -->
+      <aside class="physics-sidebar">
+        <h3>Physics Navigation</h3>
+        <nav>
+          <a href="#topics">Topics</a>
+          <a href="#motion">Motion</a>
+          <a href="#forces">Forces</a>
+          <a href="#energy">Energy</a>
+          <a href="#electricity">Electricity</a>
+          <a href="#waves">Waves & Light</a>
+          <a href="#formulas">Formula Library</a>
+          <a href="#calculators">Calculators</a>
+          <a href="#quiz">Physics Quiz</a>
+        </nav>
+        <a class="back-link" href="labs.html">← All Laboratories</a>
+      </aside>
+
+      <div class="physics-content">
+
+        <!-- Topics -->
+        <section class="physics-section" id="topics">
+          <span class="section-label">YOUR LEARNING PATH</span>
+          <h2>Explore Physics <span>Topics</span></h2>
+          <p>
+            Physics studies matter, energy, motion and the interactions
+            that explain natural phenomena.
+          </p>
+
+          <div class="topic-grid">
+            <article class="topic-card" id="motion">
+              <h3>01. Motion</h3>
+              <p>
+                Motion describes how an object's position changes
+                with time. Speed measures distance travelled per
+                unit time; velocity also includes direction.
+              </p>
+              <span class="topic-formula">Speed = Distance ÷ Time</span>
+              <p>Example: A runner covers 100 m in 20 s.</p>
+              <p>Speed = 100 ÷ 20 = 5 m/s.</p>
+            </article>
+
+            <article class="topic-card" id="forces">
+              <h3>02. Forces</h3>
+              <p>
+                A force is a push or pull that can change an
+                object's motion or shape. The SI unit is the newton (N).
+              </p>
+              <span class="topic-formula">F = m × a</span>
+              <p>Example: A 3 kg object accelerates at 2 m/s².</p>
+              <p>Force = 3 × 2 = 6 N.</p>
+            </article>
+
+            <article class="topic-card" id="energy">
+              <h3>03. Energy</h3>
+              <p>
+                Energy is the capacity to do work. Kinetic energy
+                is associated with motion, while gravitational
+                potential energy depends on height.
+              </p>
+              <span class="topic-formula">KE = ½mv²</span>
+              <p>Energy is measured in joules (J).</p>
+            </article>
+
+            <article class="topic-card" id="electricity">
+              <h3>04. Electricity</h3>
+              <p>
+                Electric circuits allow charge to flow.
+                Voltage is potential difference, current is
+                charge flow per second, and resistance opposes current.
+              </p>
+              <span class="topic-formula">V = I × R</span>
+              <p>Voltage is measured in volts (V).</p>
+            </article>
+
+            <article class="topic-card" id="waves">
+              <h3>05. Waves & Light</h3>
+              <p>
+                Waves transfer energy. Frequency measures
+                oscillations per second, and wavelength is the
+                distance between matching points on a wave.
+              </p>
+              <span class="topic-formula">v = f × λ</span>
+              <p>Frequency is measured in hertz (Hz).</p>
+            </article>
+
+            <article class="topic-card">
+              <h3>06. Heat & Temperature</h3>
+              <p>
+                Temperature relates to how hot or cold something
+                is. Heat is energy transferred because of a
+                temperature difference.
+              </p>
+              <span class="topic-formula">Q = m × c × ΔT</span>
+              <p>This applies when specific heat capacity is constant.</p>
+            </article>
+
+            <article class="topic-card">
+              <h3>07. Pressure</h3>
+              <p>
+                Pressure is force acting per unit area.
+                It is important in solids, liquids and gases.
+              </p>
+              <span class="topic-formula">P = F ÷ A</span>
+              <p>The SI unit is the pascal (Pa).</p>
+            </article>
+
+            <article class="topic-card">
+              <h3>08. Density</h3>
+              <p>
+                Density tells us how much mass occupies a
+                given volume.
+              </p>
+              <span class="topic-formula">ρ = m ÷ V</span>
+              <p>The SI unit is kg/m³.</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Formula library -->
+        <section class="physics-section" id="formulas">
+          <span class="section-label">QUICK REFERENCE</span>
+          <h2>Physics <span>Formula Library</span></h2>
+          <p>Review the formula, the symbols and their standard SI units.</p>
+
+          <div class="formula-list">
+            <div class="formula-row">
+              <strong>Speed</strong>
+              <span class="formula">v = d / t</span>
+              <p>d = distance (m), t = time (s), v = speed (m/s).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Acceleration</strong>
+              <span class="formula">a = (v − u) / t</span>
+              <p>v = final velocity, u = initial velocity, t = time.</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Newton's Second Law</strong>
+              <span class="formula">F = ma</span>
+              <p>F = force (N), m = mass (kg), a = acceleration (m/s²).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Weight near Earth's surface</strong>
+              <span class="formula">W = mg</span>
+              <p>W = weight (N), m = mass (kg), g ≈ 9.81 m/s².</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Kinetic Energy</strong>
+              <span class="formula">KE = ½mv²</span>
+              <p>m = mass (kg), v = speed (m/s), KE = energy (J).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Gravitational Potential Energy</strong>
+              <span class="formula">GPE = mgh</span>
+              <p>m = mass (kg), g = gravitational field strength, h = height (m).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Electrical Ohm's Law</strong>
+              <span class="formula">V = IR</span>
+              <p>V = voltage (V), I = current (A), R = resistance (Ω).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Wave Speed</strong>
+              <span class="formula">v = fλ</span>
+              <p>v = wave speed (m/s), f = frequency (Hz), λ = wavelength (m).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Density</strong>
+              <span class="formula">ρ = m / V</span>
+              <p>ρ = density (kg/m³), m = mass (kg), V = volume (m³).</p>
+            </div>
+
+            <div class="formula-row">
+              <strong>Pressure</strong>
+              <span class="formula">P = F / A</span>
+              <p>P = pressure (Pa), F = force (N), A = area (m²).</p>
+            </div>
+          </div>
+
+          <div class="note">
+            Always check that quantities use compatible units before
+            substituting values into a formula.
+          </div>
+        </section>
+
+        <!-- Calculators -->
+        <section class="physics-section" id="calculators">
+          <span class="section-label">INTERACTIVE TOOLS</span>
+          <h2>Physics <span>Calculators</span></h2>
+          <p>Enter your values and calculate the result instantly.</p>
+
+          <div class="calculator-grid">
+
+            <!-- Speed -->
+            <div class="calc-card">
+              <h3>Speed Calculator</h3>
+              <p>Speed = distance ÷ time</p>
+
+              <label for="distance">Distance (metres)</label>
+              <input id="distance" type="number" min="0" step="any" placeholder="e.g. 100">
+
+              <label for="time">Time (seconds)</label>
+              <input id="time" type="number" min="0" step="any" placeholder="e.g. 20">
+
+              <button class="calc-button" id="speed-button">Calculate Speed</button>
+              <div class="calc-result" id="speed-result" aria-live="polite">Your result will appear here.</div>
+            </div>
+
+            <!-- Acceleration -->
+            <div class="calc-card">
+              <h3>Acceleration Calculator</h3>
+              <p>a = (final velocity − initial velocity) ÷ time</p>
+
+              <label for="initial-velocity">Initial velocity (m/s)</label>
+              <input id="initial-velocity" type="number" step="any" placeholder="e.g. 5">
+
+              <label for="final-velocity">Final velocity (m/s)</label>
+              <input id="final-velocity" type="number" step="any" placeholder="e.g. 15">
+
+              <label for="acceleration-time">Time (seconds)</label>
+              <input id="acceleration-time" type="number" min="0" step="any" placeholder="e.g. 5">
+
+              <button class="calc-button" id="acceleration-button">Calculate Acceleration</button>
+              <div class="calc-result" id="acceleration-result" aria-live="polite">Your result will appear here.</div>
+            </div>
+
+            <!-- Force -->
+            <div class="calc-card">
+              <h3>Force Calculator</h3>
+              <p>Force = mass × acceleration</p>
+
+              <label for="force-mass">Mass (kg)</label>
+              <input id="force-mass" type="number" min="0" step="any" placeholder="e.g. 3">
+
+              <label for="force-acceleration">Acceleration (m/s²)</label>
+              <input id="force-acceleration" type="number" step="any" placeholder="e.g. 2">
+
+              <button class="calc-button" id="force-button">Calculate Force</button>
+              <div class="calc-result" id="force-result" aria-live="polite">Your result will appear here.</div>
+            </div>
+
+            <!-- Weight -->
+            <div class="calc-card">
+              <h3>Weight Calculator</h3>
+              <p>Weight = mass × gravitational field strength</p>
+
+              <label for="weight-mass">Mass (kg)</label>
+              <input id="weight-mass" type="number" min="0" step="any" placeholder="e.g. 10">
+
+              <label for="gravity">Gravity (m/s²)</label>
+              <input id="gravity" type="number" min="0" step="any" value="9.81">
+
+              <button class="calc-button" id="weight-button">Calculate Weight</button>
+              <div class="calc-result" id="weight-result" aria-live="polite">Your result will appear here.</div>
+            </div>
+
+            <!-- Kinetic energy -->
+            <div class="calc-card">
+              <h3>Kinetic Energy Calculator</h3>
+              <p>KE = ½ × mass × speed²</p>
+
+              <label for="energy-mass">Mass (kg)</label>
+              <input id="energy-mass" type="number" min="0" step="any" placeholder="e.g. 2">
+
+              <label for="energy-speed">Speed (m/s)</label>
+              <input id="energy-speed" type="number" min="0" step="any" placeholder="e.g. 4">
+
+              <button class="calc-button" id="energy-button">Calculate Energy</button>
+              <div class="calc-result" id="energy-result" aria-live="polite">Your result will appear here.</div>
+            </div>
+
+            <!-- Ohm's law -->
+            <div class="calc-card">
+              <h3>Ohm's Law Calculator</h3>
+              <p>Calculate voltage, current or resistance.</p>
+
+              <label for="ohm-mode">What do you want to calculate?</label>
+              <select id="ohm-mode">
+                <option value="voltage">Voltage (V = I × R)</option>
+                <option value="current">Current (I = V ÷ R)</option>
+                <option value="resistance">Resistance (R = V ÷ I)</option>
+              </select>
+
+              <label for="ohm-voltage">Voltage (V)</label>
+              <input id="ohm-voltage" type="number" min="0" step="any" placeholder="Voltage">
+
+              <label for="ohm-current">Current (A)</label>
+              <input id="ohm-current" type="number" min="0" step="any" placeholder="Current">
+
+              <label for="ohm-resistance">Resistance (Ω)</label>
+              <input id="ohm-resistance" type="number" min="0" step="any" placeholder="Resistance">
+
+              <button class="calc-button" id="ohm-button">Calculate</button>
+              <div class="calc-result" id="ohm-result" aria-live="polite">Enter the two known values.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Worked examples -->
+        <section class="physics-section" id="examples">
+          <span class="section-label">LEARN BY SOLVING</span>
+          <h2>Worked <span>Examples</span></h2>
+
+          <h3>Example 1: Calculate speed</h3>
+          <p>A cyclist travels 150 metres in 30 seconds. Find the average speed.</p>
+          <ul>
+            <li>Formula: speed = distance ÷ time</li>
+            <li>Substitute: speed = 150 ÷ 30</li>
+            <li>Answer: <strong>5 m/s</strong></li>
+          </ul>
+
+          <h3>Example 2: Calculate force</h3>
+          <p>A 4 kg object accelerates at 3 m/s². Find the net force.</p>
+          <ul>
+            <li>Formula: F = ma</li>
+            <li>Substitute: F = 4 × 3</li>
+            <li>Answer: <strong>12 N</strong></li>
+          </ul>
+
+          <h3>Example 3: Calculate kinetic energy</h3>
+          <p>A 2 kg ball moves at 5 m/s. Find its kinetic energy.</p>
+          <ul>
+            <li>Formula: KE = ½mv²</li>
+            <li>Substitute: KE = ½ × 2 × 5²</li>
+            <li>Answer: <strong>25 J</strong></li>
+          </ul>
+        </section>
+
+        <!-- Quiz -->
+        <section class="physics-section" id="quiz">
+          <span class="section-label">CHECK YOUR UNDERSTANDING</span>
+          <h2>Physics <span>Knowledge Quiz</span></h2>
+          <p>Answer all five questions, then check your score.</p>
+
+          <form id="physics-quiz">
+            <div class="quiz-question">
+              <p>1. What is the SI unit of force?</p>
+              <label for="q1">Choose an answer</label>
+              <select id="q1" required>
+                <option value="">Select an answer</option>
+                <option value="a">Joule</option>
+                <option value="b">Newton</option>
+                <option value="c">Watt</option>
+                <option value="d">Pascal</option>
+              </select>
+              <div class="quiz-feedback" id="feedback-q1"></div>
+            </div>
+
+            <div class="quiz-question">
+              <p>2. A car travels 60 metres in 10 seconds. What is its average speed?</p>
+              <label for="q2">Choose an answer</label>
+              <select id="q2" required>
+                <option value="">Select an answer</option>
+                <option value="a">6 m/s</option>
+                <option value="b">10 m/s</option>
+                <option value="c">50 m/s</option>
+                <option value="d">600 m/s</option>
+              </select>
+              <div class="quiz-feedback" id="feedback-q2"></div>
+            </div>
+
+            <div class="quiz-question">
+              <p>3. Which quantity is measured in joules?</p>
+              <label for="q3">Choose an answer</label>
+              <select id="q3" required>
+                <option value="">Select an answer</option>
+                <option value="a">Mass</option>
+                <option value="b">Acceleration</option>
+                <option value="c">Energy</option>
+                <option value="d">Current</option>
+              </select>
+              <div class="quiz-feedback" id="feedback-q3"></div>
+            </div>
+
+            <div class="quiz-question">
+              <p>4. A 2 kg object accelerates at 4 m/s². What net force acts on it?</p>
+              <label for="q4">Choose an answer</label>
+              <select id="q4" required>
+                <option value="">Select an answer</option>
+                <option value="a">2 N</option>
+                <option value="b">6 N</option>
+                <option value="c">8 N</option>
+                <option value="d">16 N</option>
+              </select>
+              <div class="quiz-feedback" id="feedback-q4"></div>
+            </div>
+
+            <div class="quiz-question">
+              <p>5. In the equation V = IR, what does R represent?</p>
+              <label for="q5">Choose an answer</label>
+              <select id="q5" required>
+                <option value="">Select an answer</option>
+                <option value="a">Power</option>
+                <option value="b">Resistance</option>
+                <option value="c">Charge</option>
+                <option value="d">Energy</option>
+              </select>
+              <div class="quiz-feedback" id="feedback-q5"></div>
+            </div>
+
+            <button class="calc-button" type="submit">Submit Quiz</button>
+            <button class="calc-button" type="button" id="reset-quiz"
+              style="background: var(--surface-light); color: var(--text);">
+              Try Again
+            </button>
+          </form>
+
+          <div class="quiz-score" id="quiz-score" aria-live="polite">
+            Your score will appear here after you submit the quiz.
+          </div>
+        </section>
+
+        <div class="note">
+          This is an educational learning tool. Calculators use the
+          values you enter; check your units and assumptions before
+          using results in real-world engineering or experiments.
+        </div>
+
+        <a href="labs.html" class="back-link">← Return to all laboratories</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">P</span>
+      <span>PELC <strong>SCIENCE AI</strong></span>
+    </a>
+    <p>Explore. Learn. Discover.</p>
+    <p class="copyright">© 2026 PELC Science AI. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuButton = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    menuButton.addEventListener("click", function () {
+      const open = navMenu.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.textContent = open ? "✕" : "☰";
+    });
+
+    navMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navMenu.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+      });
+    });
+
+    // Calculator helpers
+    function readNumber(id) {
+      const input = document.getElementById(id);
+      if (input.value.trim() === "") return null;
+
+      const value = Number(input.value);
+      return Number.isFinite(value) ? value : null;
+    }
+
+    function showResult(id, message, error = false) {
+      const element = document.getElementById(id);
+      element.textContent = message;
+      element.classList.toggle("error", error);
+    }
+
+    function formatNumber(number) {
+      return Number(number.toPrecision(8)).toString();
+    }
+
+    function validate(id, values, allowNegative = false) {
+      if (values.some(value => value === null)) {
+        showResult(id, "Please enter all required values.", true);
+        return false;
+      }
+
+      if (!allowNegative && values.some(value => value < 0)) {
+        showResult(id, "Use zero or positive values for these quantities.", true);
+        return false;
+      }
+
+      return true;
+    }
+
+    // Speed = distance / time
+    document.getElementById("speed-button").addEventListener("click", function () {
+      const d = readNumber("distance");
+      const t = readNumber("time");
+      const id = "speed-result";
+
+      if (!validate(id, [d, t])) return;
+      if (t === 0) {
+        showResult(id, "Time must be greater than zero.", true);
+        return;
+      }
+
+      showResult(id, "Average speed = " + formatNumber(d / t) + " m/s");
+    });
+
+    // Acceleration = (v - u) / t
+    document.getElementById("acceleration-button").addEventListener("click", function () {
+      const u = readNumber("initial-velocity");
+      const v = readNumber("final-velocity");
+      const t = readNumber("acceleration-time");
+      const id = "acceleration-result";
+
+      if (!validate(id, [u, v, t], true)) return;
+      if (t <= 0) {
+        showResult(id, "Time must be greater than zero.", true);
+        return;
+      }
+
+      showResult(id, "Acceleration = " + formatNumber((v - u) / t) + " m/s²");
+    });
+
+    // Force = mass * acceleration
+    document.getElementById("force-button").addEventListener("click", function () {
+      const m = readNumber("force-mass");
+      const a = readNumber("force-acceleration");
+      const id = "force-result";
+
+      if (!validate(id, [m, a], true)) return;
+      if (m < 0) {
+        showResult(id, "Mass cannot be negative.", true);
+        return;
+      }
+
+      showResult(id, "Net force = " + formatNumber(m * a) + " N");
+    });
+
+    // Weight = mass * gravitational field strength
+    document.getElementById("weight-button").addEventListener("click", function () {
+      const m = readNumber("weight-mass");
+      const g = readNumber("gravity");
+      const id = "weight-result";
+
+      if (!validate(id, [m, g])) return;
+      if (g === 0) {
+        showResult(id, "Enter a positive gravity value.", true);
+        return;
+      }
+
+      showResult(id, "Weight = " + formatNumber(m * g) + " N");
+    });
+
+    // Kinetic energy = 1/2 * mass * speed^2
+    document.getElementById("energy-button").addEventListener("click", function () {
+      const m = readNumber("energy-mass");
+      const v = readNumber("energy-speed");
+      const id = "energy-result";
+
+      if (!validate(id, [m, v])) return;
+
+      showResult(id, "Kinetic energy = " + formatNumber(0.5 * m * v * v) + " J");
+    });
+
+    // Ohm's law
+    document.getElementById("ohm-button").addEventListener("click", function () {
+      const mode = document.getElementById("ohm-mode").value;
+      const voltage = readNumber("ohm-voltage");
+      const current = readNumber("ohm-current");
+      const resistance = readNumber("ohm-resistance");
+      const id = "ohm-result";
+
+      let result;
+
+      if (mode === "voltage") {
+        if (!validate(id, [current, resistance])) return;
+        result = {
+          value: current * resistance,
+          label: "Voltage",
+          unit: "V"
+        };
+      } else if (mode === "current") {
+        if (!validate(id, [voltage, resistance])) return;
+        if (resistance === 0) {
+          showResult(id, "Resistance must be greater than zero.", true);
+          return;
+        }
+        result = {
+          value: voltage / resistance,
+          label: "Current",
+          unit: "A"
+        };
+      } else {
+        if (!validate(id, [voltage, current])) return;
+        if (current === 0) {
+          showResult(id, "Current must be greater than zero.", true);
+          return;
+        }
+        result = {
+          value: voltage / current,
+          label: "Resistance",
+          unit: "Ω"
+        };
+      }
+
+      showResult(id, result.label + " = " +
+        formatNumber(result.value) + " " + result.unit);
+    });
+
+    // Physics quiz
+    const answers = {
+      q1: { value: "b", explanation: "Force is measured in newtons (N)." },
+      q2: { value: "a", explanation: "Speed = 60 m ÷ 10 s = 6 m/s." },
+      q3: { value: "c", explanation: "Energy is measured in joules (J)." },
+      q4: { value: "c", explanation: "F = ma = 2 kg × 4 m/s² = 8 N." },
+      q5: { value: "b", explanation: "R represents electrical resistance, measured in ohms (Ω)." }
+    };
+
+    const quiz = document.getElementById("physics-quiz");
+    const scoreBox = document.getElementById("quiz-score");
+
+    quiz.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      let score = 0;
+      let unanswered = 0;
+
+      Object.keys(answers).forEach(function (id) {
+        const selected = document.getElementById(id).value;
+        const feedback = document.getElementById("feedback-" + id);
+        const answer = answers[id];
+
+        feedback.classList.remove("correct", "wrong");
+
+        if (!selected) {
+          unanswered++;
+          feedback.textContent = "Please answer this question.";
+          feedback.classList.add("wrong");
+        } else if (selected === answer.value) {
+          score++;
+          feedback.textContent = "Correct! " + answer.explanation;
+          feedback.classList.add("correct");
+        } else {
+          feedback.textContent = "Not quite. " + answer.explanation;
+          feedback.classList.add("wrong");
+        }
+      });
+
+      if (unanswered > 0) {
+        scoreBox.textContent =
+          "You scored " + score + " out of 5 so far. " +
+          "Answer the remaining questions and submit again.";
+      } else {
+        const percentage = Math.round((score / 5) * 100);
+        scoreBox.textContent =
+          "Final score: " + score + "/5 (" + percentage + "%). " +
+          (score === 5 ? "Excellent work!" :
+           score >= 3 ? "Good effort! Review any incorrect answers." :
+           "Keep practising and try again.");
+      }
+    });
+
+    document.getElementById("reset-quiz").addEventListener("click", function () {
+      quiz.reset();
+
+      Object.keys(answers).forEach(function (id) {
+        const feedback = document.getElementById("feedback-" + id);
+        feedback.textContent = "";
+        feedback.classList.remove("correct", "wrong");
+      });
+
+      scoreBox.textContent = "Your score will appear here after you submit the quiz.";
+    });
+  </script>
+</body>
+</html>
