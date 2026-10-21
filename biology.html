@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn biology with PELC Science AI through lessons, diagrams, calculators and quizzes.">
+  <title>Biology Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --bg: #080d1b;
+      --panel: #111a30;
+      --muted: #a9b5ce;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #e8efff;
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #080d1bf5;
+      border-bottom: 1px solid #273653;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      text-align: center;
+      padding: 65px 0;
+      background: radial-gradient(ellipse at top, #30265c, transparent 70%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1.15;
+    }
+
+    .hero h1 span { color: var(--cyan); }
+
+    .hero p, .muted, .card p { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid #465578;
+      border-radius: 30px;
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--cyan);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 28px 0;
+      scroll-margin-top: 75px;
+    }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 19px;
+      border: 1px solid #273653;
+      border-radius: 13px;
+      background: var(--panel);
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .formula {
+      display: block;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #080f22;
+      color: var(--cyan);
+      text-align: center;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .example {
+      padding: 13px 16px;
+      margin: 14px 0;
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #080f22;
+      color: white;
+      font: inherit;
+    }
+
+    .result {
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      background: #0b2030;
+      overflow-wrap: anywhere;
+    }
+
+    .error { color: #ffaaaa; }
+
+    .cell-diagram {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 200px;
+      margin: 15px 0;
+      border: 3px solid #22d3ee;
+      border-radius: 48% 52% 45% 55%;
+      background: #16314a;
+    }
+
+    .cell-nucleus {
+      display: grid;
+      place-items: center;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #a78bfa;
+      color: #100d24;
+      font-weight: bold;
+    }
+
+    .cell-label {
+      position: absolute;
+      bottom: 10px;
+      font-size: .8rem;
+      color: #e8efff;
+    }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #273653;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #273653;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="labs.html">All Labs</a>
+      <a href="physics-lab.html">Physics</a>
+      <a href="chemistry-lab.html">Chemistry</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="tag">SCIENCE LAB 03</span>
+    <h1>Discover the <span>Biology Lab</span></h1>
+    <p>
+      Explore living organisms, cells, genetics, ecology and the human body
+      through simple lessons and interactive learning tools.
+    </p>
+    <a class="button" href="#topics">Start Learning</a>
+    <a class="button" href="#quiz">Take the Quiz</a>
+  </div>
+</section>
+
+<main class="container">
+
+  <section id="topics">
+    <h2>Explore Biology Topics</h2>
+    <p class="muted">Learn how living things are structured, function, reproduce and interact with their environment.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>🔬 Cell Biology</h3>
+        <p>Study cells, their structures and the jobs performed by organelles.</p>
+        <span class="formula">Cell → Basic unit of life</span>
+      </article>
+
+      <article class="card">
+        <h3>🧬 Genetics</h3>
+        <p>Discover DNA, genes, chromosomes and how traits can be inherited.</p>
+        <span class="formula">DNA → Genes → Traits</span>
+      </article>
+
+      <article class="card">
+        <h3>🌿 Photosynthesis</h3>
+        <p>Learn how plants use light energy to make glucose.</p>
+        <span class="formula">CO₂ + H₂O → Glucose + O₂</span>
+      </article>
+
+      <article class="card">
+        <h3>🫀 Human Biology</h3>
+        <p>Explore organ systems including circulation, respiration and digestion.</p>
+        <span class="formula">Organ systems work together</span>
+      </article>
+
+      <article class="card">
+        <h3>🌍 Ecology</h3>
+        <p>Understand ecosystems, food chains, populations and biodiversity.</p>
+        <span class="formula">Organism ↔ Environment</span>
+      </article>
+
+      <article class="card">
+        <h3>🦠 Microbiology</h3>
+        <p>Learn about microorganisms such as bacteria, fungi and viruses.</p>
+        <span class="formula">Microscopic life and agents</span>
+      </article>
+
+      <article class="card">
+        <h3>🧪 Enzymes</h3>
+        <p>Study biological catalysts that help reactions occur in living things.</p>
+        <span class="formula">Enzyme + Substrate</span>
+      </article>
+
+      <article class="card">
+        <h3>🦴 Support and Movement</h3>
+        <p>Explore bones, joints and muscles and how they work together.</p>
+        <span class="formula">Bones + Joints + Muscles</span>
+      </article>
+
+      <article class="card">
+        <h3>🌱 Reproduction</h3>
+        <p>Understand how organisms produce offspring and continue their species.</p>
+        <span class="formula">Reproduction → Continuity</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="cell">
+    <h2>1. Cell Structure</h2>
+    <p>
+      Cells are the basic structural and functional units of living organisms.
+      Animal and plant cells contain a cell membrane, cytoplasm and genetic
+      material. Most plant cells also have a cellulose cell wall, a large
+      central vacuole and chloroplasts in photosynthetic tissues.
+    </p>
+
+    <div class="card">
+      <h3>Simple cell illustration</h3>
+      <div class="cell-diagram" role="img" aria-label="Simplified cell diagram with a nucleus">
+        <div class="cell-nucleus">Nucleus</div>
+        <span class="cell-label">Cell membrane • Cytoplasm</span>
+      </div>
+      <p class="muted">
+        Simplified illustration for learning; it is not to scale and does not
+        show every cell structure.
+      </p>
+    </div>
+
+    <div class="example">
+      <strong>Remember:</strong>
+      <p>
+        The nucleus contains most of a eukaryotic cell's DNA. The cell membrane
+        regulates movement of substances into and out of the cell. Mitochondria
+        are important sites of aerobic respiration.
+      </p>
+    </div>
+  </section>
+
+  <section id="photosynthesis">
+    <h2>2. Photosynthesis</h2>
+    <p>
+      Photosynthesis converts light energy into chemical energy stored in
+      organic molecules. In plants, it takes place in chloroplasts.
+    </p>
+    <span class="formula">6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</span>
+    <p class="muted">
+      Light energy and suitable conditions are required. The equation is a
+      simplified summary of the overall process.
+    </p>
+
+    <div class="example">
+      <strong>Worked example</strong>
+      <p>
+        If a plant has access to light, water and carbon dioxide, it can make
+        glucose through photosynthesis. The rate is also affected by factors
+        such as light intensity, carbon dioxide concentration and temperature.
+      </p>
+    </div>
+  </section>
+
+  <section id="respiration">
+    <h2>3. Cellular Respiration</h2>
+    <p>
+      Aerobic respiration releases usable energy from glucose using oxygen.
+      It produces carbon dioxide and water, and transfers energy into ATP.
+    </p>
+    <span class="formula">Glucose + Oxygen → Carbon dioxide + Water + Energy</span>
+
+    <div class="example">
+      <strong>Key idea:</strong>
+      <p>
+        Photosynthesis stores energy in organic molecules; cellular respiration
+        transfers energy from molecules such as glucose into ATP for cellular work.
+      </p>
+    </div>
+  </section>
+
+  <section id="ecology">
+    <h2>4. Ecology and Food Chains</h2>
+    <p>
+      Ecology studies interactions between organisms and their environments.
+      Producers make organic food, consumers obtain energy by feeding, and
+      decomposers break down dead material and recycle nutrients.
+    </p>
+    <span class="formula">Grass → Grasshopper → Frog → Snake</span>
+    <p class="muted">
+      Arrows show the direction of energy transfer from food to consumer.
+      Real ecosystems usually contain many interconnected food chains.
+    </p>
+  </section>
+
+  <section id="calculators">
+    <h2>Biology Calculators</h2>
+    <p class="muted">Use these educational tools with data from your exercises or experiments.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Magnification</h3>
+        <p>Calculate image size divided by actual size. Both measurements must use the same units.</p>
+        <div class="field">
+          <label for="imageSize">Image size</label>
+          <input id="imageSize" type="number" min="0" step="any" placeholder="e.g. 40">
+        </div>
+        <div class="field">
+          <label for="actualSize">Actual size</label>
+          <input id="actualSize" type="number" min="0" step="any" placeholder="e.g. 0.2">
+        </div>
+        <button class="button" onclick="calculateMagnification()">Calculate</button>
+        <div class="result" id="magnificationResult" aria-live="polite">Your answer appears here.</div>
+      </article>
+
+      <article class="card">
+        <h3>Percentage Change</h3>
+        <p>Compare a starting measurement with a final measurement.</p>
+        <div class="field">
+          <label for="startValue">Starting value</label>
+          <input id="startValue" type="number" min="0" step="any" placeholder="e.g. 20">
+        </div>
+        <div class="field">
+          <label for="endValue">Final value</label>
+          <input id="endValue" type="number" min="0" step="any" placeholder="e.g. 25">
+        </div>
+        <button class="button" onclick="calculateChange()">Calculate</button>
+        <div class="result" id="changeResult" aria-live="polite">Your answer appears here.</div>
+      </article>
+
+      <article class="card">
+        <h3>Population Density</h3>
+        <p>Calculate the number of organisms per unit area.</p>
+        <div class="field">
+          <label for="organisms">Number of organisms</label>
+          <input id="organisms" type="number" min="0" step="1" placeholder="e.g. 100">
+        </div>
+        <div class="field">
+          <label for="area">Area (m²)</label>
+          <input id="area" type="number" min="0" step="any" placeholder="e.g. 20">
+        </div>
+        <button class="button" onclick="calculatePopulation()">Calculate</button>
+        <div class="result" id="populationResult" aria-live="polite">Your answer appears here.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <h2>Biology Knowledge Quiz</h2>
+    <p class="muted">Choose one answer for each question and check your score.</p>
+
+    <form id="biologyQuiz">
+      <div class="question">
+        <p>1. What is the basic unit of life?</p>
+        <label><input type="radio" name="q1" value="a"> Organ</label>
+        <label><input type="radio" name="q1" value="b"> Cell</label>
+        <label><input type="radio" name="q1" value="c"> Organ system</label>
+      </div>
+
+      <div class="question">
+        <p>2. Which organelle is the main site of photosynthesis in plant cells?</p>
+        <label><input type="radio" name="q2" value="a"> Chloroplast</label>
+        <label><input type="radio" name="q2" value="b"> Nucleus</label>
+        <label><input type="radio" name="q2" value="c"> Ribosome</label>
+      </div>
+
+      <div class="question">
+        <p>3. Which gas is used in aerobic respiration?</p>
+        <label><input type="radio" name="q3" value="a"> Helium</label>
+        <label><input type="radio" name="q3" value="b"> Nitrogen</label>
+        <label><input type="radio" name="q3" value="c"> Oxygen</label>
+      </div>
+
+      <div class="question">
+        <p>4. What is the role of a producer in a food chain?</p>
+        <label><input type="radio" name="q4" value="a"> It always hunts consumers</label>
+        <label><input type="radio" name="q4" value="b"> It makes organic food, usually using light energy</label>
+        <label><input type="radio" name="q4" value="c"> It breaks down rocks only</label>
+      </div>
+
+      <div class="question">
+        <p>5. What does DNA carry?</p>
+        <label><input type="radio" name="q5" value="a"> Inherited genetic information</label>
+        <label><input type="radio" name="q5" value="b"> Only oxygen</label>
+        <label><input type="radio" name="q5" value="c"> Only water</label>
+      </div>
+
+      <button class="button" type="submit">Check My Answers</button>
+      <button class="button" type="reset">Reset Quiz</button>
+    </form>
+
+    <div class="result" id="quizResult" aria-live="polite">Your score appears here.</div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI — Learn, explore and discover.</p>
+    <a href="labs.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  function readValues(ids, outputId) {
+    const values = ids.map(id => {
+      const field = document.getElementById(id);
+      if (field.value.trim() === "") return null;
+
+      const value = Number(field.value);
+      return Number.isFinite(value) ? value : null;
+    });
+
+    if (values.some(value => value === null)) {
+      showResult(outputId, "Enter a valid number in every field.", true);
+      return null;
+    }
+
+    if (values.some(value => value < 0)) {
+      showResult(outputId, "Values cannot be negative.", true);
+      return null;
+    }
+
+    return values;
+  }
+
+  function showResult(id, message, isError = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.classList.toggle("error", isError);
+  }
+
+  function calculateMagnification() {
+    const values = readValues(
+      ["imageSize", "actualSize"], "magnificationResult"
+    );
+    if (!values) return;
+
+    const [image, actual] = values;
+
+    if (actual === 0) {
+      showResult("magnificationResult", "Actual size must be greater than zero.", true);
+      return;
+    }
+
+    showResult(
+      "magnificationResult",
+      `Magnification = ${(image / actual).toLocaleString()}×`
+    );
+  }
+
+  function calculateChange() {
+    const values = readValues(
+      ["startValue", "endValue"], "changeResult"
+    );
+    if (!values) return;
+
+    const [start, end] = values;
+
+    if (start === 0) {
+      showResult("changeResult", "Starting value must be greater than zero.", true);
+      return;
+    }
+
+    const percentage = ((end - start) / start) * 100;
+    const description = percentage > 0
+      ? "increase"
+      : percentage < 0
+        ? "decrease"
+        : "no change";
+
+    showResult(
+      "changeResult",
+      `Percentage change = ${Math.abs(percentage).toFixed(2)}% (${description})`
+    );
+  }
+
+  function calculatePopulation() {
+    const values = readValues(
+      ["organisms", "area"], "populationResult"
+    );
+    if (!values) return;
+
+    const [count, area] = values;
+
+    if (!Number.isInteger(count)) {
+      showResult("populationResult", "Organism count must be a whole number.", true);
+      return;
+    }
+
+    if (area === 0) {
+      showResult("populationResult", "Area must be greater than zero.", true);
+      return;
+    }
+
+    showResult(
+      "populationResult",
+      `Population density = ${(count / area).toFixed(2)} organisms/m²`
+    );
+  }
+
+  const answers = {
+    q1: "b",
+    q2: "a",
+    q3: "c",
+    q4: "b",
+    q5: "a"
+  };
+
+  const quiz = document.getElementById("biologyQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+
+    for (const [question, correct] of Object.entries(answers)) {
+      const selected = quiz.querySelector(
+        `input[name="${question}"]:checked`
+      );
+
+      if (selected && selected.value === correct) score++;
+    }
+
+    showResult(
+      "quizResult",
+      `Your score: ${score}/5. ` +
+      (score === 5 ? "Excellent work!" : "Review the lessons and try again.")
+    );
+  });
+
+  quiz.addEventListener("reset", function() {
+    showResult("quizResult", "Your score appears here.");
+  });
+</script>
+</body>
+</html>
