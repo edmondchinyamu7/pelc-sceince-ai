@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore engineering, robotics, circuits, machines and practical engineering calculations with PELC Science AI.">
+  <title>Engineering & Robotics Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --lab-bg: #07111f;
+      --lab-card: #101e31;
+      --lab-border: #253951;
+      --lab-cyan: #35d9f5;
+      --lab-purple: #a78bfa;
+      --lab-text: #edf5ff;
+      --lab-muted: #a9b9cc;
+    }
+
+    body {
+      background: var(--lab-bg);
+      color: var(--lab-text);
+    }
+
+    .lab-container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    .lab-hero {
+      padding: 75px 0 55px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at top left, #17375b 0%, transparent 55%),
+        radial-gradient(ellipse at bottom right, #291d51 0%, transparent 50%);
+    }
+
+    .lab-hero h1 {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      margin-bottom: 15px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--lab-cyan), var(--lab-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lab-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--lab-muted);
+      line-height: 1.8;
+    }
+
+    .lab-section {
+      padding: 35px 0;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .section-intro {
+      color: var(--lab-muted);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .lab-card, .tool-card {
+      background: var(--lab-card);
+      border: 1px solid var(--lab-border);
+      border-radius: 16px;
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .lab-card h3, .tool-card h3 {
+      margin: 8px 0 12px;
+    }
+
+    .lab-card p, .tool-card p, .lab-card li {
+      color: var(--lab-muted);
+      line-height: 1.7;
+    }
+
+    .lab-icon {
+      font-size: 2rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+    }
+
+    .tool-card label {
+      display: block;
+      margin: 14px 0 6px;
+      font-size: .92rem;
+    }
+
+    .tool-card input, .tool-card select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #344b65;
+      border-radius: 8px;
+      background: #091524;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .lab-button {
+      display: inline-block;
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #18bcd8, #8170e8);
+      color: #07111f;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .lab-button:hover {
+      filter: brightness(1.12);
+    }
+
+    .result {
+      margin-top: 14px;
+      padding: 12px;
+      min-height: 45px;
+      border-radius: 8px;
+      background: #091524;
+      border: 1px solid var(--lab-border);
+      color: var(--lab-cyan);
+      overflow-wrap: anywhere;
+      line-height: 1.6;
+    }
+
+    .formula {
+      color: var(--lab-cyan);
+      font-weight: 700;
+    }
+
+    .notice {
+      padding: 16px;
+      border-left: 4px solid var(--lab-purple);
+      border-radius: 8px;
+      background: #141a30;
+      color: var(--lab-muted);
+      line-height: 1.7;
+    }
+
+    .quiz-question {
+      padding: 17px 0;
+      border-bottom: 1px solid var(--lab-border);
+    }
+
+    .quiz-question p {
+      line-height: 1.6;
+    }
+
+    .quiz-question label {
+      display: block;
+      padding: 7px 0;
+      color: var(--lab-muted);
+      cursor: pointer;
+    }
+
+    .quiz-question input {
+      margin-right: 8px;
+    }
+
+    .lab-footer {
+      margin-top: 40px;
+      padding: 28px 0;
+      border-top: 1px solid var(--lab-border);
+      text-align: center;
+      color: var(--lab-muted);
+    }
+
+    .lab-footer a {
+      color: var(--lab-cyan);
+    }
+
+    @media (max-width: 600px) {
+      .lab-hero {
+        padding: 50px 0 35px;
+      }
+
+      .lab-section {
+        padding: 25px 0;
+      }
+
+      .lab-card, .tool-card {
+        padding: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">PELC <span>Science AI</span></div>
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="labs.html">All Labs</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="lab-hero">
+    <div class="lab-container">
+      <p class="gradient-text">PELC SCIENCE AI · PHASE 11</p>
+      <h1>Engineering & <span class="gradient-text">Robotics Lab</span></h1>
+      <p>
+        Discover how machines work, explore robotics, understand electrical
+        circuits and practise engineering calculations with interactive tools.
+      </p>
+    </div>
+  </section>
+
+  <main class="lab-container">
+
+    <!-- Learning modules -->
+    <section class="lab-section">
+      <h2 class="section-title">Engineering Learning Centre</h2>
+      <p class="section-intro">
+        Start with the fundamentals, then apply your knowledge to practical problems.
+      </p>
+
+      <div class="lab-grid">
+        <article class="lab-card">
+          <div class="lab-icon">⚙️</div>
+          <h3>Simple Machines</h3>
+          <p>
+            Learn about levers, pulleys, wheels and axles, inclined planes,
+            wedges and screws. These machines help us change the size or
+            direction of a force.
+          </p>
+          <p class="formula">Mechanical advantage = Load ÷ Effort</p>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-icon">🔌</div>
+          <h3>Electrical Engineering</h3>
+          <p>
+            Explore voltage, current, resistance and circuits. Learn how
+            components work together to transfer electrical energy.
+          </p>
+          <p class="formula">V = I × R</p>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-icon">🤖</div>
+          <h3>Robotics Fundamentals</h3>
+          <p>
+            A robot can use sensors to collect information, a controller
+            to make decisions, and actuators such as motors to perform actions.
+          </p>
+          <ul>
+            <li>Sensors: detect changes</li>
+            <li>Controllers: process information</li>
+            <li>Actuators: create movement</li>
+          </ul>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-icon">🧩</div>
+          <h3>Engineering Design</h3>
+          <p>
+            Engineers identify a problem, research possible solutions,
+            design a prototype, test it and improve the design.
+          </p>
+          <p class="formula">Problem → Design → Build → Test → Improve</p>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-icon">⚙️</div>
+          <h3>Gears and Motion</h3>
+          <p>
+            Gears transfer rotational motion. In a simple pair of gears,
+            a smaller driving gear generally makes a larger driven gear
+            rotate more slowly.
+          </p>
+          <p class="formula">
+            Speed ratio = Driver teeth ÷ Driven teeth
+          </p>
+        </article>
+
+        <article class="lab-card">
+          <div class="lab-icon">🌱</div>
+          <h3>Engineering in Malawi</h3>
+          <p>
+            Explore engineering ideas for local needs, including irrigation,
+            solar-powered systems, water management, bridges and agricultural
+            equipment.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Interactive tools -->
+    <section class="lab-section">
+      <h2 class="section-title">Interactive Engineering Tools</h2>
+      <p class="section-intro">
+        Enter your own values and calculate the result. These tools are
+        educational models, not substitutes for professional engineering designs.
+      </p>
+
+      <div class="tool-grid">
+
+        <!-- Ohm's law -->
+        <article class="tool-card">
+          <h3>🔋 Ohm's Law Calculator</h3>
+          <p>Calculate voltage, current or resistance using V = I × R.</p>
+
+          <label for="ohmMode">What do you want to calculate?</label>
+          <select id="ohmMode">
+            <option value="voltage">Voltage (V)</option>
+            <option value="current">Current (A)</option>
+            <option value="resistance">Resistance (Ω)</option>
+          </select>
+
+          <label for="ohmA" id="ohmALabel">Current (amperes)</label>
+          <input id="ohmA" type="number" min="0" step="any" value="2">
+
+          <label for="ohmB" id="ohmBLabel">Resistance (ohms)</label>
+          <input id="ohmB" type="number" min="0" step="any" value="5">
+
+          <button class="lab-button" id="ohmButton">Calculate</button>
+          <div class="result" id="ohmResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Gear ratio -->
+        <article class="tool-card">
+          <h3>⚙️ Gear Ratio Calculator</h3>
+          <p>Estimate the output speed of a simple pair of gears.</p>
+
+          <label for="driverTeeth">Driving gear teeth</label>
+          <input id="driverTeeth" type="number" min="1" step="1" value="20">
+
+          <label for="drivenTeeth">Driven gear teeth</label>
+          <input id="drivenTeeth" type="number" min="1" step="1" value="40">
+
+          <label for="inputRPM">Input speed (RPM)</label>
+          <input id="inputRPM" type="number" min="0" step="any" value="120">
+
+          <button class="lab-button" id="gearButton">Calculate Gear Ratio</button>
+          <div class="result" id="gearResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Lever -->
+        <article class="tool-card">
+          <h3>🛠️ Lever Calculator</h3>
+          <p>Estimate the effort needed to balance a simple lever.</p>
+
+          <label for="loadForce">Load force (newtons)</label>
+          <input id="loadForce" type="number" min="0" step="any" value="100">
+
+          <label for="loadArm">Distance from pivot to load (metres)</label>
+          <input id="loadArm" type="number" min="0" step="any" value="0.5">
+
+          <label for="effortArm">Distance from pivot to effort (metres)</label>
+          <input id="effortArm" type="number" min="0" step="any" value="1">
+
+          <button class="lab-button" id="leverButton">Calculate Effort</button>
+          <div class="result" id="leverResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Power -->
+        <article class="tool-card">
+          <h3>⚡ Electrical Power Calculator</h3>
+          <p>Calculate electrical power when voltage and current are known.</p>
+
+          <label for="powerVoltage">Voltage (volts)</label>
+          <input id="powerVoltage" type="number" min="0" step="any" value="12">
+
+          <label for="powerCurrent">Current (amperes)</label>
+          <input id="powerCurrent" type="number" min="0" step="any" value="2">
+
+          <button class="lab-button" id="powerButton">Calculate Power</button>
+          <div class="result" id="powerResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Robotics activity -->
+    <section class="lab-section">
+      <h2 class="section-title">Robotics Logic Simulator</h2>
+      <p class="section-intro">
+        Try a simple rule-based robot. This simulation illustrates how a robot
+        might react to a sensor; it does not control a physical robot.
+      </p>
+
+      <article class="tool-card">
+        <h3>🤖 Obstacle-Avoiding Robot</h3>
+
+        <label for="obstacleDistance">Distance to obstacle (centimetres)</label>
+        <input id="obstacleDistance" type="number" min="0" step="any" value="50">
+
+        <label for="obstacleThreshold">Detection threshold (centimetres)</label>
+        <input id="obstacleThreshold" type="number" min="1" step="any" value="20">
+
+        <button class="lab-button" id="robotButton">Run Simulation</button>
+        <div class="result" id="robotResult" aria-live="polite">
+          Run the simulation to see the robot's decision.
+        </div>
+
+        <p>
+          <strong>Example rule:</strong> If the obstacle is closer than the
+          threshold, stop and turn. Otherwise, continue moving forward.
+        </p>
+      </article>
+    </section>
+
+    <!-- Safety -->
+    <section class="lab-section">
+      <h2 class="section-title">Engineering Safety</h2>
+      <div class="notice">
+        Learn with diagrams, simulations and low-risk classroom models.
+        Do not experiment with household mains electricity, exposed live
+        wiring, high-voltage equipment or heavy machinery without qualified
+        supervision. Real engineering projects need appropriate safety checks.
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="lab-section">
+      <h2 class="section-title">Test Your Knowledge</h2>
+      <p class="section-intro">
+        Answer all five questions, then check your score.
+      </p>
+
+      <form id="engineeringQuiz">
+        <div class="quiz-question">
+          <p><strong>1. What does a sensor do in a robot?</strong></p>
+          <label><input type="radio" name="q1" value="a"> Supplies all the robot's power</label>
+          <label><input type="radio" name="q1" value="b"> Detects information about its surroundings</label>
+          <label><input type="radio" name="q1" value="c"> Always controls the wheels directly</label>
+        </div>
+
+        <div class="quiz-question">
+          <p><strong>2. Which formula represents Ohm's law?</strong></p>
+          <label><input type="radio" name="q2" value="a"> V = I × R</label>
+          <label><input type="radio" name="q2" value="b"> V = I + R</label>
+          <label><input type="radio" name="q2" value="c"> V = I ÷ R</label>
+        </div>
+
+        <div class="quiz-question">
+          <p><strong>3. What is a common function of gears?</strong></p>
+          <label><input type="radio" name="q3" value="a"> Create matter</label>
+          <label><input type="radio" name="q3" value="b"> Remove all friction</label>
+          <label><input type="radio" name="q3" value="c"> Transfer rotational motion</label>
+        </div>
+
+        <div class="quiz-question">
+          <p><strong>4. What is the pivot point of a lever called?</strong></p>
+          <label><input type="radio" name="q4" value="a"> Sensor</label>
+          <label><input type="radio" name="q4" value="b"> Fulcrum</label>
+          <label><input type="radio" name="q4" value="c"> Battery</label>
+        </div>
+
+        <div class="quiz-question">
+          <p><strong>5. What should engineers do after testing a prototype?</strong></p>
+          <label><input type="radio" name="q5" value="a"> Review the results and improve the design if needed</label>
+          <label><input type="radio" name="q5" value="b"> Ignore every problem</label>
+          <label><input type="radio" name="q5" value="c"> Stop measuring performance</label>
+        </div>
+
+        <button type="submit" class="lab-button">Submit Quiz</button>
+        <div class="result" id="quizResult" aria-live="polite">
+          Your score will appear here.
+        </div>
+      </form>
+    </section>
+
+    <!-- Navigation -->
+    <section class="lab-section">
+      <div class="lab-card">
+        <h3>Ready for another subject?</h3>
+        <p>Explore the other PELC Science AI learning laboratories.</p>
+        <a class="lab-button" href="labs.html"
+           style="text-align:center;text-decoration:none;">
+          Explore All Labs
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="lab-footer">
+    <div class="lab-container">
+      <p><strong>PELC Science AI</strong></p>
+      <p>Learn science. Explore ideas. Build the future.</p>
+      <p><a href="index.html">Home</a> · <a href="labs.html">All Labs</a></p>
+      <p>&copy; <span id="currentYear"></span> PELC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = navLinks.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    // Helper functions
+    function readNumber(id) {
+      const field = document.getElementById(id);
+      const value = field.value.trim();
+
+      if (value === "") return NaN;
+      return Number(value);
+    }
+
+    function validNonNegative(...values) {
+      return values.every(value => Number.isFinite(value) && value >= 0);
+    }
+
+    function showResult(id, message) {
+      document.getElementById(id).textContent = message;
+    }
+
+    function formatNumber(value) {
+      return Number(value.toFixed(4)).toLocaleString();
+    }
+
+    // Ohm's law calculator
+    const ohmMode = document.getElementById("ohmMode");
+    const ohmALabel = document.getElementById("ohmALabel");
+    const ohmBLabel = document.getElementById("ohmBLabel");
+
+    function updateOhmLabels() {
+      const mode = ohmMode.value;
+
+      if (mode === "voltage") {
+        ohmALabel.textContent = "Current (amperes)";
+        ohmBLabel.textContent = "Resistance (ohms)";
+      } else if (mode === "current") {
+        ohmALabel.textContent = "Voltage (volts)";
+        ohmBLabel.textContent = "Resistance (ohms)";
+      } else {
+        ohmALabel.textContent = "Voltage (volts)";
+        ohmBLabel.textContent = "Current (amperes)";
+      }
+    }
+
+    ohmMode.addEventListener("change", updateOhmLabels);
+
+    document.getElementById("ohmButton").addEventListener("click", () => {
+      const a = readNumber("ohmA");
+      const b = readNumber("ohmB");
+
+      if (!validNonNegative(a, b)) {
+        showResult("ohmResult", "Enter valid, non-negative numbers.");
+        return;
+      }
+
+      let result;
+
+      if (ohmMode.value === "voltage") {
+        result = `${formatNumber(a * b)} volts (V)`;
+      } else if (ohmMode.value === "current") {
+        if (b === 0) {
+          showResult("ohmResult", "Resistance must be greater than zero.");
+          return;
+        }
+        result = `${formatNumber(a / b)} amperes (A)`;
+      } else {
+        if (b === 0) {
+          showResult("ohmResult", "Current must be greater than zero to calculate resistance.");
+          return;
+        }
+        result = `${formatNumber(a / b)} ohms (Ω)`;
+      }
+
+      showResult("ohmResult", `Result: ${result}`);
+    });
+
+    // Gear ratio calculator
+    document.getElementById("gearButton").addEventListener("click", () => {
+      const driver = readNumber("driverTeeth");
+      const driven = readNumber("drivenTeeth");
+      const rpm = readNumber("inputRPM");
+
+      if (!validNonNegative(driver, driven, rpm) ||
+          !Number.isInteger(driver) || !Number.isInteger(driven) ||
+          driver < 1 || driven < 1) {
+        showResult("gearResult", "Enter positive whole numbers for gear teeth and a non-negative input speed.");
+        return;
+      }
+
+      const ratio = driven / driver;
+      const outputRPM = rpm * driver / driven;
+
+      showResult(
+        "gearResult",
+        `Gear ratio (driven:driver): ${formatNumber(ratio)}:1. ` +
+        `Estimated output speed: ${formatNumber(outputRPM)} RPM. ` +
+        `Assumes a simple gear pair with no slip or losses.`
+      );
+    });
+
+    // Lever calculator
+    document.getElementById("leverButton").addEventListener("click", () => {
+      const load = readNumber("loadForce");
+      const loadArm = readNumber("loadArm");
+      const effortArm = readNumber("effortArm");
+
+      if (!validNonNegative(load, loadArm, effortArm) || effortArm === 0) {
+        showResult("leverResult", "Enter non-negative values. The effort arm must be greater than zero.");
+        return;
+      }
+
+      const effort = (load * loadArm) / effortArm;
+      const mechanicalAdvantage =
+        load === 0 || effort === 0 ? null : load / effort;
+
+      let message = `Ideal effort required: ${formatNumber(effort)} N.`;
+
+      if (mechanicalAdvantage !== null) {
+        message += ` Ideal mechanical advantage: ${formatNumber(mechanicalAdvantage)}.`;
+      }
+
+      message += " This assumes a balanced, ideal lever.";
+      showResult("leverResult", message);
+    });
+
+    // Electrical power calculator
+    document.getElementById("powerButton").addEventListener("click", () => {
+      const voltage = readNumber("powerVoltage");
+      const current = readNumber("powerCurrent");
+
+      if (!validNonNegative(voltage, current)) {
+        showResult("powerResult", "Enter valid, non-negative numbers.");
+        return;
+      }
+
+      const power = voltage * current;
+      showResult("powerResult", `Electrical power: ${formatNumber(power)} watts (W), using P = V × I.`);
+    });
+
+    // Robotics logic simulator
+    document.getElementById("robotButton").addEventListener("click", () => {
+      const distance = readNumber("obstacleDistance");
+      const threshold = readNumber("obstacleThreshold");
+
+      if (!validNonNegative(distance, threshold) || threshold === 0) {
+        showResult("robotResult", "Enter a non-negative distance and a threshold greater than zero.");
+        return;
+      }
+
+      if (distance <= threshold) {
+        showResult(
+          "robotResult",
+          "Obstacle detected! The simulated robot stops and chooses to turn away."
+        );
+      } else {
+        showResult(
+          "robotResult",
+          "Path appears clear. The simulated robot continues forward."
+        );
+      }
+    });
+
+    // Knowledge quiz
+    document.getElementById("engineeringQuiz").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "c",
+        q4: "b",
+        q5: "a"
+      };
+
+      let score = 0;
+      let unanswered = 0;
+
+      for (const [question, answer] of Object.entries(answers)) {
+        const selected = document.querySelector(
+          `input[name="${question}"]:checked`
+        );
+
+        if (!selected) {
+          unanswered++;
+        } else if (selected.value === answer) {
+          score++;
+        }
+      }
+
+      if (unanswered > 0) {
+        showResult(
+          "quizResult",
+          `You have answered ${5 - unanswered} of 5 questions. Please answer all questions before checking your score.`
+        );
+        return;
+      }
+
+      let feedback;
+
+      if (score === 5) {
+        feedback = "Excellent work!";
+      } else if (score >= 3) {
+        feedback = "Good effort! Review the lessons to strengthen your understanding.";
+      } else {
+        feedback = "Keep learning! Review the topics and try again.";
+      }
+
+      showResult("quizResult", `Your score: ${score}/5. ${feedback}`);
+    });
+  </script>
+
+</body>
+</html>
