@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn agriculture, crop production, soil science, irrigation and sustainable farming with PELC Science AI.">
+  <title>Agricultural Science Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg: #07111f;
+      --card: #101e31;
+      --border: #293d55;
+      --cyan: #35d9f5;
+      --purple: #a78bfa;
+      --text: #edf5ff;
+      --muted: #adbdcf;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .ag-container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    .ag-hero {
+      text-align: center;
+      padding: 75px 0 55px;
+      background:
+        radial-gradient(ellipse at top left, #174b3a, transparent 55%),
+        radial-gradient(ellipse at bottom right, #291d51, transparent 55%);
+    }
+
+    .ag-hero h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      margin: 12px 0;
+    }
+
+    .gradient {
+      color: var(--cyan);
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ag-hero p,
+    .ag-intro {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .ag-hero p {
+      max-width: 720px;
+      margin: auto;
+    }
+
+    .ag-section {
+      padding: 32px 0;
+    }
+
+    .ag-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .ag-intro {
+      margin-bottom: 22px;
+    }
+
+    .ag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 18px;
+    }
+
+    .ag-card {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--card);
+    }
+
+    .ag-card h3 {
+      margin: 10px 0;
+    }
+
+    .ag-card p,
+    .ag-card li {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .ag-icon {
+      font-size: 2rem;
+    }
+
+    .ag-tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+      gap: 18px;
+    }
+
+    .ag-card label {
+      display: block;
+      margin: 14px 0 6px;
+      font-size: .93rem;
+    }
+
+    .ag-card input,
+    .ag-card select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #344b65;
+      border-radius: 8px;
+      background: #091524;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .ag-button {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      margin-top: 15px;
+      border: 0;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #18bcd8, #8170e8);
+      color: #07111f;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .ag-button:hover {
+      filter: brightness(1.12);
+    }
+
+    .ag-result {
+      min-height: 44px;
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #091524;
+      color: var(--cyan);
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .ag-formula {
+      color: var(--cyan) !important;
+      font-weight: bold;
+    }
+
+    .ag-notice {
+      padding: 16px;
+      border-left: 4px solid var(--purple);
+      border-radius: 8px;
+      background: #141a30;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .ag-question {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ag-question p {
+      line-height: 1.7;
+    }
+
+    .ag-question label {
+      display: block;
+      padding: 7px 0;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .ag-question input {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    .ag-footer {
+      padding: 28px 0;
+      margin-top: 35px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .ag-footer a {
+      color: var(--cyan);
+    }
+
+    @media (max-width: 600px) {
+      .ag-hero {
+        padding: 48px 0 35px;
+      }
+
+      .ag-section {
+        padding: 23px 0;
+      }
+
+      .ag-card {
+        padding: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">PELC <span>Science AI</span></div>
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="labs.html">All Labs</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="ag-hero">
+    <div class="ag-container">
+      <p class="gradient">PELC SCIENCE AI · PHASE 12</p>
+      <h1>Agricultural <span class="gradient">Science Lab</span></h1>
+      <p>
+        Discover how crops grow, explore soil science, calculate planting
+        spaces and understand irrigation through interactive agricultural tools.
+        Learn practical concepts relevant to farmers and students in Malawi.
+      </p>
+    </div>
+  </section>
+
+  <main class="ag-container">
+
+    <!-- Lessons -->
+    <section class="ag-section">
+      <h2>Explore Agricultural Science</h2>
+      <p class="ag-intro">
+        Learn the science behind food production and sustainable farming.
+      </p>
+
+      <div class="ag-grid">
+        <article class="ag-card">
+          <div class="ag-icon">🌱</div>
+          <h3>Crop Production</h3>
+          <p>
+            Learn about seed selection, germination, planting, weeding,
+            nutrient management, harvesting and post-harvest storage.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <div class="ag-icon">🌍</div>
+          <h3>Soil Science</h3>
+          <p>
+            Explore soil texture, structure, drainage, organic matter and
+            nutrients. Different crops grow best under different soil conditions.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <div class="ag-icon">💧</div>
+          <h3>Irrigation</h3>
+          <p>
+            Understand how water reaches crops through watering cans, drip
+            irrigation, sprinklers and other systems. Good scheduling helps
+            reduce unnecessary water use.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <div class="ag-icon">🌦️</div>
+          <h3>Climate and Weather</h3>
+          <p>
+            Study rainfall, temperature, sunlight and seasonal changes.
+            These factors affect planting dates, crop growth and harvesting.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <div class="ag-icon">🐛</div>
+          <h3>Pests and Plant Health</h3>
+          <p>
+            Learn to recognise signs of pests and plant diseases, monitor crops
+            and explore integrated pest management and prevention methods.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <div class="ag-icon">🚜</div>
+          <h3>Sustainable Agriculture</h3>
+          <p>
+            Explore crop rotation, composting, erosion control, agroforestry
+            and soil conservation to support long-term agricultural productivity.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Calculators -->
+    <section class="ag-section">
+      <h2>Interactive Agriculture Tools</h2>
+      <p class="ag-intro">
+        Practise agricultural calculations with sample values. Actual planting
+        recommendations depend on the crop variety, local conditions and farming advice.
+      </p>
+
+      <div class="ag-tools">
+
+        <!-- Germination -->
+        <article class="ag-card">
+          <h3>🌱 Seed Germination Calculator</h3>
+          <p>Estimate the percentage of seeds that germinated in a test.</p>
+
+          <label for="seedsTested">Number of seeds tested</label>
+          <input id="seedsTested" type="number" min="1"
+            step="1" value="50">
+
+          <label for="seedsGerminated">Number that germinated</label>
+          <input id="seedsGerminated" type="number" min="0"
+            step="1" value="40">
+
+          <button class="ag-button" id="germinationButton">
+            Calculate Germination
+          </button>
+
+          <div class="ag-result" id="germinationResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Plant spacing -->
+        <article class="ag-card">
+          <h3>🌾 Plant Population Calculator</h3>
+          <p>Estimate the number of planting positions in a rectangular field.</p>
+
+          <label for="fieldLength">Field length (metres)</label>
+          <input id="fieldLength" type="number" min="0"
+            step="any" value="100">
+
+          <label for="fieldWidth">Field width (metres)</label>
+          <input id="fieldWidth" type="number" min="0"
+            step="any" value="50">
+
+          <label for="rowSpacing">Distance between rows (metres)</label>
+          <input id="rowSpacing" type="number" min="0"
+            step="any" value="0.75">
+
+          <label for="plantSpacing">Distance between plants in a row (metres)</label>
+          <input id="plantSpacing" type="number" min="0"
+            step="any" value="0.25">
+
+          <button class="ag-button" id="populationButton">
+            Estimate Plant Population
+          </button>
+
+          <div class="ag-result" id="populationResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Crop yield -->
+        <article class="ag-card">
+          <h3>🌽 Crop Yield Calculator</h3>
+          <p>Convert harvested mass into an estimated yield per hectare.</p>
+
+          <label for="harvestMass">Harvested crop mass (kg)</label>
+          <input id="harvestMass" type="number" min="0"
+            step="any" value="500">
+
+          <label for="harvestArea">Harvested area (square metres)</label>
+          <input id="harvestArea" type="number" min="0"
+            step="any" value="1000">
+
+          <button class="ag-button" id="yieldButton">
+            Calculate Yield
+          </button>
+
+          <div class="ag-result" id="yieldResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Irrigation -->
+        <article class="ag-card">
+          <h3>💧 Irrigation Water Calculator</h3>
+          <p>
+            Estimate the water volume for a field using a selected application
+            depth. This is a planning calculation, not a crop-specific prescription.
+          </p>
+
+          <label for="irrigationArea">Field area (square metres)</label>
+          <input id="irrigationArea" type="number" min="0"
+            step="any" value="100">
+
+          <label for="waterDepth">Water application depth (millimetres)</label>
+          <input id="waterDepth" type="number" min="0"
+            step="any" value="10">
+
+          <button class="ag-button" id="irrigationButton">
+            Calculate Water Volume
+          </button>
+
+          <div class="ag-result" id="irrigationResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Fertiliser concentration -->
+        <article class="ag-card">
+          <h3>🧪 Nutrient Calculator</h3>
+          <p>
+            Estimate the mass of a named nutrient in a fertiliser sample
+            when its percentage is known.
+          </p>
+
+          <label for="fertiliserMass">Fertiliser mass (kg)</label>
+          <input id="fertiliserMass" type="number" min="0"
+            step="any" value="50">
+
+          <label for="nutrientPercent">Nutrient percentage (%)</label>
+          <input id="nutrientPercent" type="number" min="0"
+            max="100" step="any" value="10">
+
+          <button class="ag-button" id="nutrientButton">
+            Calculate Nutrient Mass
+          </button>
+
+          <div class="ag-result" id="nutrientResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+        <!-- Field area -->
+        <article class="ag-card">
+          <h3>📏 Field Area Calculator</h3>
+          <p>Calculate the area of a rectangular field.</p>
+
+          <label for="areaLength">Length (metres)</label>
+          <input id="areaLength" type="number" min="0"
+            step="any" value="80">
+
+          <label for="areaWidth">Width (metres)</label>
+          <input id="areaWidth" type="number" min="0"
+            step="any" value="40">
+
+          <button class="ag-button" id="areaButton">
+            Calculate Field Area
+          </button>
+
+          <div class="ag-result" id="areaResult" aria-live="polite">
+            Your result will appear here.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Malawi focus -->
+    <section class="ag-section">
+      <h2>Agriculture in Malawi</h2>
+      <div class="ag-grid">
+        <article class="ag-card">
+          <h3>🌽 Maize Production</h3>
+          <p>
+            Study germination, soil fertility, rainfall, planting density,
+            weed management and post-harvest storage. Suitable practices
+            depend on the variety and local conditions.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <h3>🥜 Legumes</h3>
+          <p>
+            Explore crops such as groundnuts, beans and soybeans. Legumes can
+            contribute to farming systems through food production and, for
+            suitable varieties, biological nitrogen fixation.
+          </p>
+        </article>
+
+        <article class="ag-card">
+          <h3>🌳 Soil and Water Conservation</h3>
+          <p>
+            Learn about mulching, contour farming, cover crops and other
+            locally appropriate methods for reducing soil erosion and
+            protecting moisture.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Safety notice -->
+    <section class="ag-section">
+      <h2>Responsible Farming and Lab Safety</h2>
+      <div class="ag-notice">
+        These tools are educational estimates. Follow product labels and
+        qualified agricultural guidance when handling fertilisers, pesticides
+        or other farm chemicals. Do not taste unknown seeds or plants.
+        Check local recommendations before making real farm decisions.
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="ag-section">
+      <h2>Test Your Agricultural Knowledge</h2>
+      <p class="ag-intro">Answer all five questions to check your score.</p>
+
+      <form id="agQuiz">
+        <div class="ag-question">
+          <p><strong>1. What does seed germination mean?</strong></p>
+          <label><input type="radio" name="q1" value="a"> A seed begins to grow</label>
+          <label><input type="radio" name="q1" value="b"> A crop is harvested</label>
+          <label><input type="radio" name="q1" value="c"> Soil is removed</label>
+        </div>
+
+        <div class="ag-question">
+          <p><strong>2. Which factor is important for most crop growth?</strong></p>
+          <label><input type="radio" name="q2" value="a"> Plastic waste</label>
+          <label><input type="radio" name="q2" value="b"> Appropriate water and nutrients</label>
+          <label><input type="radio" name="q2" value="c"> Complete darkness at all times</label>
+        </div>
+
+        <div class="ag-question">
+          <p><strong>3. Why is crop rotation used?</strong></p>
+          <label><input type="radio" name="q3" value="a"> To make every soil identical</label>
+          <label><input type="radio" name="q3" value="b"> To stop all rainfall</label>
+          <label><input type="radio" name="q3" value="c"> To help manage soil fertility and some pest problems</label>
+        </div>
+
+        <div class="ag-question">
+          <p><strong>4. What is the area of a 10 m by 5 m rectangular field?</strong></p>
+          <label><input type="radio" name="q4" value="a"> 50 square metres</label>
+          <label><input type="radio" name="q4" value="b"> 15 square metres</label>
+          <label><input type="radio" name="q4" value="c"> 100 square metres</label>
+        </div>
+
+        <div class="ag-question">
+          <p><strong>5. Which practice can help reduce soil erosion?</strong></p>
+          <label><input type="radio" name="q5" value="a"> Leaving all soil bare on steep slopes</label>
+          <label><input type="radio" name="q5" value="b"> Suitable ground cover and contour practices</label>
+          <label><input type="radio" name="q5" value="c"> Removing all vegetation permanently</label>
+        </div>
+
+        <button type="submit" class="ag-button">Submit Quiz</button>
+        <div class="ag-result" id="quizResult" aria-live="polite">
+          Your score will appear here.
+        </div>
+      </form>
+    </section>
+
+    <!-- Back to labs -->
+    <section class="ag-section">
+      <article class="ag-card">
+        <h3>Explore more science subjects</h3>
+        <p>Continue learning with the other PELC Science AI labs.</p>
+        <a href="labs.html" class="ag-button"
+          style="text-align:center;text-decoration:none;">
+          Explore All Labs
+        </a>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="ag-footer">
+    <div class="ag-container">
+      <p><strong>PELC Science AI</strong></p>
+      <p>Learn science. Explore ideas. Build the future.</p>
+      <p><a href="index.html">Home</a> · <a href="labs.html">All Labs</a></p>
+      <p>&copy; <span id="currentYear"></span> PELC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(open));
+      });
+    }
+
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    // Shared calculator helpers
+    function numberValue(id) {
+      const raw = document.getElementById(id).value.trim();
+      return raw === "" ? NaN : Number(raw);
+    }
+
+    function validValues(...values) {
+      return values.every(value =>
+        Number.isFinite(value) && value >= 0
+      );
+    }
+
+    function output(id, message) {
+      document.getElementById(id).textContent = message;
+    }
+
+    function fmt(value) {
+      return Number(value.toFixed(3)).toLocaleString();
+    }
+
+    // Seed germination
+    document.getElementById("germinationButton")
+      .addEventListener("click", () => {
+        const tested = numberValue("seedsTested");
+        const germinated = numberValue("seedsGerminated");
+
+        if (
+          !validValues(tested, germinated) ||
+          !Number.isInteger(tested) ||
+          !Number.isInteger(germinated) ||
+          tested < 1 ||
+          germinated > tested
+        ) {
+          output("germinationResult",
+            "Enter whole numbers. Tested seeds must be at least 1, and germinated seeds cannot exceed the total.");
+          return;
+        }
+
+        const percentage = (germinated / tested) * 100;
+
+        output("germinationResult",
+          `Germination rate: ${fmt(percentage)}% (${germinated} of ${tested} seeds).`);
+      });
+
+    // Plant population estimate
+    document.getElementById("populationButton")
+      .addEventListener("click", () => {
+        const length = numberValue("fieldLength");
+        const width = numberValue("fieldWidth");
+        const rows = numberValue("rowSpacing");
+        const plants = numberValue("plantSpacing");
+
+        if (
+          !validValues(length, width, rows, plants) ||
+          length === 0 || width === 0 ||
+          rows === 0 || plants === 0
+        ) {
+          output("populationResult",
+            "Enter positive field dimensions and spacing distances.");
+          return;
+        }
+
+        const area = length * width;
+        const estimate = Math.floor(area / (rows * plants));
+
+        output("populationResult",
+          `Field area: ${fmt(area)} m². Approximate planting positions: ${estimate.toLocaleString()}. This area-based estimate assumes uniform spacing and does not account for paths, field edges or missing plants.`);
+      });
+
+    // Crop yield
+    document.getElementById("yieldButton")
+      .addEventListener("click", () => {
+        const mass = numberValue("harvestMass");
+        const area = numberValue("harvestArea");
+
+        if (!validValues(mass, area) || area === 0) {
+          output("yieldResult",
+            "Enter non-negative harvested mass and a field area greater than zero.");
+          return;
+        }
+
+        const kgPerHa = (mass / area) * 10000;
+        const tonnesPerHa = kgPerHa / 1000;
+
+        output("yieldResult",
+          `Estimated yield: ${fmt(kgPerHa)} kg/ha, or ${fmt(tonnesPerHa)} tonnes/ha.`);
+      });
+
+    // Irrigation volume: 1 mm over 1 m² = 1 litre
+    document.getElementById("irrigationButton")
+      .addEventListener("click", () => {
+        const area = numberValue("irrigationArea");
+        const depth = numberValue("waterDepth");
+
+        if (!validValues(area, depth) || area === 0) {
+          output("irrigationResult",
+            "Enter a field area greater than zero and a non-negative water depth.");
+          return;
+        }
+
+        const litres = area * depth;
+
+        output("irrigationResult",
+          `Estimated application volume: ${fmt(litres)} litres (${fmt(litres / 1000)} m³). This is the theoretical volume before accounting for rainfall, runoff, soil infiltration and system losses.`);
+      });
+
+    // Nutrient mass
+    document.getElementById("nutrientButton")
+      .addEventListener("click", () => {
+        const mass = numberValue("fertiliserMass");
+        const percentage = numberValue("nutrientPercent");
+
+        if (
+          !validValues(mass, percentage) ||
+          percentage > 100
+        ) {
+          output("nutrientResult",
+            "Enter a non-negative fertiliser mass and a percentage from 0 to 100.");
+          return;
+        }
+
+        const nutrientMass = mass * percentage / 100;
+
+        output("nutrientResult",
+          `Estimated nutrient mass: ${fmt(nutrientMass)} kg. This uses the percentage you entered; check the product label for the actual nutrient composition.`);
+      });
+
+    // Rectangular field area
+    document.getElementById("areaButton")
+      .addEventListener("click", () => {
+        const length = numberValue("areaLength");
+        const width = numberValue("areaWidth");
+
+        if (
+          !validValues(length, width) ||
+          length === 0 || width === 0
+        ) {
+          output("areaResult",
+            "Enter positive length and width measurements.");
+          return;
+        }
+
+        const area = length * width;
+
+        output("areaResult",
+          `Field area: ${fmt(area)} square metres (${fmt(area / 10000)} hectares).`);
+      });
+
+    // Agricultural science quiz
+    document.getElementById("agQuiz")
+      .addEventListener("submit", event => {
+        event.preventDefault();
+
+        const answers = {
+          q1: "a",
+          q2: "b",
+          q3: "c",
+          q4: "a",
+          q5: "b"
+        };
+
+        let score = 0;
+        let unanswered = 0;
+
+        for (const [question, answer] of Object.entries(answers)) {
+          const selected = document.querySelector(
+            `input[name="${question}"]:checked`
+          );
+
+          if (!selected) {
+            unanswered++;
+          } else if (selected.value === answer) {
+            score++;
+          }
+        }
+
+        if (unanswered > 0) {
+          output("quizResult",
+            `You have answered ${5 - unanswered} of 5 questions. Complete all questions before checking your score.`);
+          return;
+        }
+
+        let feedback = "Keep practising and review the lessons.";
+
+        if (score === 5) {
+          feedback = "Excellent! You understand these agricultural science basics.";
+        } else if (score >= 3) {
+          feedback = "Good effort! Review the topics you missed.";
+        }
+
+        output("quizResult", `Your score: ${score}/5. ${feedback}`);
+      });
+  </script>
+
+</body>
+</html>
