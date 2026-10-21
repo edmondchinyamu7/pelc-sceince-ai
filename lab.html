@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Labs | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #080d1b;
+      color: #f1f5ff;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: #0b1020;
+      border-bottom: 1px solid #263653;
+      padding: 16px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      color: #22d3ee;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1.15rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #e1e9ff;
+      text-decoration: none;
+    }
+
+    nav a:hover { color: #22d3ee; }
+
+    .hero {
+      padding: 55px 0 30px;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #31265d, transparent 70%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 span { color: #22d3ee; }
+
+    .hero p { color: #aab7d1; }
+
+    .search {
+      width: min(500px, 100%);
+      margin: 20px auto;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #394969;
+      background: #111a30;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .labs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      padding: 25px 0 50px;
+    }
+
+    .lab-card {
+      display: block;
+      padding: 22px;
+      background: #111a30;
+      border: 1px solid #344361;
+      border-radius: 14px;
+      color: #f1f5ff;
+      text-decoration: none;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .lab-card:hover,
+    .lab-card:focus-visible {
+      transform: translateY(-5px);
+      border-color: #22d3ee;
+      box-shadow: 0 8px 25px #22d3ee20;
+      outline: none;
+    }
+
+    .lab-icon { font-size: 2rem; }
+
+    .lab-card h2 {
+      margin: 12px 0 8px;
+      font-size: 1.25rem;
+    }
+
+    .lab-card p {
+      color: #aab7d1;
+      font-size: .95rem;
+    }
+
+    .open-label {
+      display: inline-block;
+      margin-top: 8px;
+      color: #22d3ee;
+      font-weight: bold;
+    }
+
+    #noResults {
+      display: none;
+      text-align: center;
+      color: #aab7d1;
+      padding: 25px;
+    }
+
+    footer {
+      border-top: 1px solid #263653;
+      padding: 25px 0;
+      text-align: center;
+      color: #aab7d1;
+    }
+
+    @media (max-width: 760px) {
+      .labs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 500px) {
+      .labs { grid-template-columns: 1fr; }
+      .hero { padding-top: 35px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC SCIENCE AI</a>
+
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="lab.html">Labs</a>
+      <a href="index.html#features">Features</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <p>LEARN • EXPLORE • DISCOVER</p>
+      <h1>Explore Our <span>Science Labs</span></h1>
+      <p>Choose a lab below to open its lessons and interactive tools.</p>
+
+      <input
+        class="search"
+        id="labSearch"
+        type="search"
+        placeholder="Search for a science lab..."
+        aria-label="Search science labs"
+      >
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="labs" id="labsGrid">
+
+      <a class="lab-card" href="physics-lab.html" data-name="physics">
+        <div class="lab-icon">⚡</div>
+        <h2>Physics Lab</h2>
+        <p>Explore motion, forces, energy, electricity and waves.</p>
+        <span class="open-label">Open Physics →</span>
+      </a>
+
+      <a class="lab-card" href="chemistry-lab.html" data-name="chemistry">
+        <div class="lab-icon">🧪</div>
+        <h2>Chemistry Lab</h2>
+        <p>Discover atoms, elements, reactions, acids and bases.</p>
+        <span class="open-label">Open Chemistry →</span>
+      </a>
+
+      <a class="lab-card" href="biology-lab.html" data-name="biology">
+        <div class="lab-icon">🧬</div>
+        <h2>Biology Lab</h2>
+        <p>Learn about cells, living organisms, genetics and ecology.</p>
+        <span class="open-label">Open Biology →</span>
+      </a>
+
+      <a class="lab-card" href="mathematics-lab.html" data-name="mathematics maths">
+        <div class="lab-icon">📐</div>
+        <h2>Mathematics Lab</h2>
+        <p>Practise algebra, geometry, statistics and calculations.</p>
+        <span class="open-label">Open Mathematics →</span>
+      </a>
+
+      <a class="lab-card" href="earth-space-lab.html" data-name="earth space astronomy">
+        <div class="lab-icon">🌍</div>
+        <h2>Earth & Space Lab</h2>
+        <p>Explore planets, stars, weather, rocks and the universe.</p>
+        <span class="open-label">Open Earth & Space →</span>
+      </a>
+
+      <a class="lab-card" href="computer-science-lab.html" data-name="computer science coding programming">
+        <div class="lab-icon">💻</div>
+        <h2>Computer Science Lab</h2>
+        <p>Learn programming, algorithms, computers and digital systems.</p>
+        <span class="open-label">Open Computer Science →</span>
+      </a>
+
+      <a class="lab-card" href="environmental-science-lab.html" data-name="environment ecology">
+        <div class="lab-icon">🌱</div>
+        <h2>Environmental Science</h2>
+        <p>Study ecosystems, pollution, conservation and climate.</p>
+        <span class="open-label">Open Environmental Science →</span>
+      </a>
+
+      <a class="lab-card" href="health-science-lab.html" data-name="health human body">
+        <div class="lab-icon">🩺</div>
+        <h2>Health Science Lab</h2>
+        <p>Learn about the human body, nutrition and public health.</p>
+        <span class="open-label">Open Health Science →</span>
+      </a>
+
+      <a class="lab-card" href="engineering-robotics-lab.html" data-name="engineering robotics">
+        <div class="lab-icon">🤖</div>
+        <h2>Engineering & Robotics</h2>
+        <p>Explore design, machines, robotics and engineering principles.</p>
+        <span class="open-label">Open Engineering →</span>
+      </a>
+
+      <a class="lab-card" href="agricultural-science-lab.html" data-name="agriculture farming">
+        <div class="lab-icon">🌾</div>
+        <h2>Agricultural Science</h2>
+        <p>Discover crops, soil, farming systems and sustainable agriculture.</p>
+        <span class="open-label">Open Agriculture →</span>
+      </a>
+
+    </div>
+
+    <p id="noResults">No labs match your search. Try another word.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI. Learn something new every day.</p>
+  </div>
+</footer>
+
+<script>
+  const searchInput = document.getElementById("labSearch");
+  const labCards = document.querySelectorAll(".lab-card");
+  const noResults = document.getElementById("noResults");
+
+  searchInput.addEventListener("input", function () {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    labCards.forEach(function (card) {
+      const searchableText =
+        (card.dataset.name + " " + card.textContent).toLowerCase();
+
+      const matches = searchableText.includes(query);
+      card.hidden = !matches;
+
+      if (matches) visibleCount++;
+    });
+
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+  });
+</script>
+
+</body>
+</html>
