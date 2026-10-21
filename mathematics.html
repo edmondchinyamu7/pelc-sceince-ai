@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn mathematics with PELC Science AI through lessons, calculators and quizzes.">
+  <title>Mathematics Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --bg: #080d1b;
+      --panel: #111a30;
+      --muted: #a9b5ce;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #e8efff;
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #080d1bf5;
+      border-bottom: 1px solid #273653;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      padding: 65px 0;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #30265c, transparent 70%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1.15;
+    }
+
+    .hero h1 span { color: var(--cyan); }
+
+    .hero p, .muted, .card p { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid #465578;
+      border-radius: 30px;
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--cyan);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 28px 0;
+      scroll-margin-top: 80px;
+    }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 19px;
+      border: 1px solid #273653;
+      border-radius: 13px;
+      background: var(--panel);
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .formula {
+      display: block;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #080f22;
+      color: var(--cyan);
+      text-align: center;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .example {
+      padding: 13px 16px;
+      margin: 14px 0;
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #080f22;
+      color: white;
+      font: inherit;
+    }
+
+    .result {
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      background: #0b2030;
+      overflow-wrap: anywhere;
+    }
+
+    .error { color: #ffaaaa; }
+
+    .calculator-display {
+      padding: 18px;
+      min-height: 65px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      background: #080f22;
+      border: 1px solid #465578;
+      text-align: right;
+      font-size: 1.6rem;
+      overflow-wrap: anywhere;
+    }
+
+    .calc-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .calc-buttons button {
+      padding: 13px 4px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #1a2540;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .calc-buttons button:hover { border-color: var(--cyan); }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #273653;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #273653;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="labs.html">All Labs</a>
+      <a href="physics-lab.html">Physics</a>
+      <a href="chemistry-lab.html">Chemistry</a>
+      <a href="biology-lab.html">Biology</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="tag">SCIENCE LAB 04</span>
+    <h1>Discover the <span>Mathematics Lab</span></h1>
+    <p>
+      Learn algebra, geometry, statistics, percentages and more using
+      clear explanations and interactive mathematical tools.
+    </p>
+    <a class="button" href="#topics">Start Learning</a>
+    <a class="button" href="#quiz">Take the Quiz</a>
+  </div>
+</section>
+
+<main class="container">
+
+  <section id="topics">
+    <h2>Explore Mathematics</h2>
+    <p class="muted">Build your mathematical skills from basic calculations to more advanced concepts.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>➗ Arithmetic</h3>
+        <p>Work with addition, subtraction, multiplication, division and fractions.</p>
+        <span class="formula">Order of operations: BODMAS</span>
+      </article>
+
+      <article class="card">
+        <h3>🔢 Algebra</h3>
+        <p>Use symbols and equations to represent unknown values and relationships.</p>
+        <span class="formula">ax + b = c</span>
+      </article>
+
+      <article class="card">
+        <h3>📐 Geometry</h3>
+        <p>Explore angles, shapes, perimeter, area and volume.</p>
+        <span class="formula">Rectangle area = length × width</span>
+      </article>
+
+      <article class="card">
+        <h3>📈 Statistics</h3>
+        <p>Summarise and interpret data using mean, median, mode and range.</p>
+        <span class="formula">Mean = Sum ÷ Count</span>
+      </article>
+
+      <article class="card">
+        <h3>🎲 Probability</h3>
+        <p>Measure the likelihood of an event when outcomes are equally likely.</p>
+        <span class="formula">P(E) = Favourable ÷ Total</span>
+      </article>
+
+      <article class="card">
+        <h3>📊 Percentages</h3>
+        <p>Calculate discounts, increases, decreases and percentage changes.</p>
+        <span class="formula">Percentage = Part ÷ Whole × 100</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="algebra">
+    <h2>1. Algebra</h2>
+    <p>
+      Algebra uses letters to represent numbers. To solve a simple linear
+      equation, perform the same operation on both sides to isolate the unknown.
+    </p>
+
+    <div class="example">
+      <strong>Worked example: Solve 3x + 5 = 20</strong>
+      <p>Subtract 5 from both sides: 3x = 15.</p>
+      <p>Divide both sides by 3: <strong>x = 5</strong>.</p>
+      <p>Check: 3(5) + 5 = 20.</p>
+    </div>
+
+    <div class="card">
+      <h3>Linear Equation Solver</h3>
+      <p>For equations of the form ax + b = c, calculate x = (c − b) ÷ a.</p>
+
+      <div class="field">
+        <label for="coefficient">Coefficient a</label>
+        <input id="coefficient" type="number" step="any" placeholder="e.g. 3">
+      </div>
+
+      <div class="field">
+        <label for="constant">Constant b</label>
+        <input id="constant" type="number" step="any" placeholder="e.g. 5">
+      </div>
+
+      <div class="field">
+        <label for="rightSide">Right side c</label>
+        <input id="rightSide" type="number" step="any" placeholder="e.g. 20">
+      </div>
+
+      <button class="button" onclick="solveEquation()">Solve Equation</button>
+      <div class="result" id="equationResult" aria-live="polite">Your answer appears here.</div>
+    </div>
+  </section>
+
+  <section id="geometry">
+    <h2>2. Geometry</h2>
+    <p>Geometry studies shapes, sizes, angles and spatial relationships.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Rectangle</h3>
+        <span class="formula">Area = length × width</span>
+        <span class="formula">Perimeter = 2(length + width)</span>
+      </article>
+
+      <article class="card">
+        <h3>Triangle</h3>
+        <span class="formula">Area = ½ × base × height</span>
+        <span class="formula">Angles total = 180°</span>
+      </article>
+
+      <article class="card">
+        <h3>Circle</h3>
+        <span class="formula">Area = πr²</span>
+        <span class="formula">Circumference = 2πr</span>
+      </article>
+    </div>
+
+    <div class="card">
+      <h3>Rectangle Calculator</h3>
+
+      <div class="field">
+        <label for="length">Length</label>
+        <input id="length" type="number" min="0" step="any" placeholder="e.g. 8">
+      </div>
+
+      <div class="field">
+        <label for="width">Width</label>
+        <input id="width" type="number" min="0" step="any" placeholder="e.g. 4">
+      </div>
+
+      <button class="button" onclick="calculateRectangle()">Calculate Area and Perimeter</button>
+      <div class="result" id="rectangleResult" aria-live="polite">Your answer appears here.</div>
+    </div>
+  </section>
+
+  <section id="statistics">
+    <h2>3. Statistics</h2>
+    <p>
+      Statistics helps us understand data. The mean is the sum divided by the
+      number of values. The median is the middle value after sorting. The mode
+      is the most frequent value, and the range is the maximum minus minimum.
+    </p>
+
+    <div class="example">
+      <strong>Worked example</strong>
+      <p>Data: 2, 4, 4, 6, 9</p>
+      <p>Mean = 25 ÷ 5 = 5.</p>
+      <p>Median = 4; mode = 4; range = 9 − 2 = 7.</p>
+    </div>
+
+    <div class="card">
+      <h3>Statistics Calculator</h3>
+      <p>Enter numbers separated by commas.</p>
+
+      <div class="field">
+        <label for="dataValues">Your data</label>
+        <input id="dataValues" type="text" placeholder="e.g. 2, 4, 4, 6, 9">
+      </div>
+
+      <button class="button" onclick="calculateStatistics()">Analyse Data</button>
+      <div class="result" id="statisticsResult" aria-live="polite">Your results appear here.</div>
+    </div>
+  </section>
+
+  <section id="percentages">
+    <h2>4. Percentages</h2>
+    <p>
+      A percentage expresses a value as a fraction of 100. To find a percentage
+      of a number, multiply the number by the percentage divided by 100.
+    </p>
+
+    <div class="example">
+      <strong>Worked example</strong>
+      <p>Find 15% of 200.</p>
+      <p>15 ÷ 100 × 200 = <strong>30</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h3>Percentage Calculator</h3>
+
+      <div class="field">
+        <label for="percent">Percentage (%)</label>
+        <input id="percent" type="number" step="any" placeholder="e.g. 15">
+      </div>
+
+      <div class="field">
+        <label for="whole">Number</label>
+        <input id="whole" type="number" step="any" placeholder="e.g. 200">
+      </div>
+
+      <button class="button" onclick="calculatePercentage()">Calculate Percentage</button>
+      <div class="result" id="percentageResult" aria-live="polite">Your answer appears here.</div>
+    </div>
+  </section>
+
+  <section id="calculator">
+    <h2>5. Interactive Calculator</h2>
+    <p class="muted">Use the buttons for basic arithmetic. This calculator supports numbers and +, −, × and ÷.</p>
+
+    <div class="card">
+      <div class="calculator-display" id="calcDisplay" aria-live="polite">0</div>
+
+      <div class="calc-buttons">
+        <button type="button" onclick="calcClear()">C</button>
+        <button type="button" onclick="calcBackspace()">⌫</button>
+        <button type="button" onclick="calcOperator('%')">%</button>
+        <button type="button" onclick="calcOperator('/')">÷</button>
+
+        <button type="button" onclick="calcDigit('7')">7</button>
+        <button type="button" onclick="calcDigit('8')">8</button>
+        <button type="button" onclick="calcDigit('9')">9</button>
+        <button type="button" onclick="calcOperator('*')">×</button>
+
+        <button type="button" onclick="calcDigit('4')">4</button>
+        <button type="button" onclick="calcDigit('5')">5</button>
+        <button type="button" onclick="calcDigit('6')">6</button>
+        <button type="button" onclick="calcOperator('-')">−</button>
+
+        <button type="button" onclick="calcDigit('1')">1</button>
+        <button type="button" onclick="calcDigit('2')">2</button>
+        <button type="button" onclick="calcDigit('3')">3</button>
+        <button type="button" onclick="calcOperator('+')">+</button>
+
+        <button type="button" onclick="calcDigit('0')">0</button>
+        <button type="button" onclick="calcDecimal()">.</button>
+        <button type="button" onclick="calcSign()">±</button>
+        <button type="button" onclick="calcEquals()">=</button>
+      </div>
+      <p class="muted">The % button divides the current number by 100. For example, 50% becomes 0.5.</p>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <h2>Mathematics Knowledge Quiz</h2>
+    <p class="muted">Answer the five questions and check your score.</p>
+
+    <form id="mathQuiz">
+      <div class="question">
+        <p>1. Solve: 2x = 12.</p>
+        <label><input type="radio" name="q1" value="a"> x = 4</label>
+        <label><input type="radio" name="q1" value="b"> x = 6</label>
+        <label><input type="radio" name="q1" value="c"> x = 10</label>
+      </div>
+
+      <div class="question">
+        <p>2. What is the area of a rectangle of length 5 and width 3?</p>
+        <label><input type="radio" name="q2" value="a"> 8 square units</label>
+        <label><input type="radio" name="q2" value="b"> 15 square units</label>
+        <label><input type="radio" name="q2" value="c"> 16 square units</label>
+      </div>
+
+      <div class="question">
+        <p>3. What is 25% of 80?</p>
+        <label><input type="radio" name="q3" value="a"> 20</label>
+        <label><input type="radio" name="q3" value="b"> 25</label>
+        <label><input type="radio" name="q3" value="c"> 40</label>
+      </div>
+
+      <div class="question">
+        <p>4. What is the mean of 2, 4 and 6?</p>
+        <label><input type="radio" name="q4" value="a"> 3</label>
+        <label><input type="radio" name="q4" value="b"> 6</label>
+        <label><input type="radio" name="q4" value="c"> 4</label>
+      </div>
+
+      <div class="question">
+        <p>5. A fair coin is tossed once. What is the probability of heads?</p>
+        <label><input type="radio" name="q5" value="a"> 1/4</label>
+        <label><input type="radio" name="q5" value="b"> 1/2</label>
+        <label><input type="radio" name="q5" value="c"> 1</label>
+      </div>
+
+      <button class="button" type="submit">Check My Answers</button>
+      <button class="button" type="reset">Reset Quiz</button>
+    </form>
+
+    <div class="result" id="quizResult" aria-live="polite">Your score appears here.</div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI — Learn, explore and discover.</p>
+    <a href="labs.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  function readNumbers(ids, resultId) {
+    const values = ids.map(id => {
+      const field = document.getElementById(id);
+      if (field.value.trim() === "") return null;
+      const number = Number(field.value);
+      return Number.isFinite(number) ? number : null;
+    });
+
+    if (values.some(value => value === null)) {
+      showResult(resultId, "Please enter a valid number in every field.", true);
+      return null;
+    }
+
+    return values;
+  }
+
+  function showResult(id, message, error = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.classList.toggle("error", error);
+  }
+
+  function calculatePercentage() {
+    const values = readNumbers(["percent", "whole"], "percentageResult");
+    if (!values) return;
+
+    const [percent, whole] = values;
+    showResult("percentageResult", `${percent}% of ${whole} = ${(percent / 100 * whole).toFixed(4)}`);
+  }
+
+  function solveEquation() {
+    const values = readNumbers(
+      ["coefficient", "constant", "rightSide"], "equationResult"
+    );
+    if (!values) return;
+
+    const [a, b, c] = values;
+
+    if (a === 0) {
+      showResult("equationResult", "The coefficient must not be zero for this solver.", true);
+      return;
+    }
+
+    showResult("equationResult", `x = (c − b) ÷ a = ${(c - b) / a}`);
+  }
+
+  function calculateRectangle() {
+    const values = readNumbers(["length", "width"], "rectangleResult");
+    if (!values) return;
+
+    const [length, width] = values;
+
+    if (length < 0 || width < 0) {
+      showResult("rectangleResult", "Length and width cannot be negative.", true);
+      return;
+    }
+
+    showResult(
+      "rectangleResult",
+      `Area = ${length * width} square units. Perimeter = ${2 * (length + width)} units.`
+    );
+  }
+
+  function calculateStatistics() {
+    const input = document.getElementById("dataValues").value.trim();
+
+    if (!input) {
+      showResult("statisticsResult", "Enter at least one number.", true);
+      return;
+    }
+
+    const values = input.split(",").map(item => item.trim());
+
+    if (values.some(item => item === "" || !Number.isFinite(Number(item)))) {
+      showResult("statisticsResult", "Use valid numbers separated by commas.", true);
+      return;
+    }
+
+    const numbers = values.map(Number).sort((a, b) => a - b);
+    const sum = numbers.reduce((total, number) => total + number, 0);
+    const mean = sum / numbers.length;
+
+    const middle = Math.floor(numbers.length / 2);
+    const median = numbers.length % 2
+      ? numbers[middle]
+      : (numbers[middle - 1] + numbers[middle]) / 2;
+
+    const frequencies = new Map();
+    numbers.forEach(number => {
+      frequencies.set(number, (frequencies.get(number) || 0) + 1);
+    });
+
+    const highestFrequency = Math.max(...frequencies.values());
+    const modes = [...frequencies.entries()]
+      .filter(([, count]) => count === highestFrequency)
+      .filter(([, count]) => count > 1)
+      .map(([number]) => number);
+
+    const modeText = modes.length ? modes.join(", ") : "No mode";
+
+    showResult(
+      "statisticsResult",
+      `Count: ${numbers.length} | Mean: ${mean} | Median: ${median} | Mode: ${modeText} | Range: ${numbers[numbers.length - 1] - numbers[0]}`
+    );
+  }
+
+  // Basic calculator
+  let displayValue = "0";
+  let storedValue = null;
+  let pendingOperator = null;
+  let resetDisplay = false;
+
+  function renderCalculator() {
+    document.getElementById("calcDisplay").textContent = displayValue;
+  }
+
+  function calcDigit(digit) {
+    if (resetDisplay || displayValue === "0" || displayValue === "Error") {
+      displayValue = digit;
+      resetDisplay = false;
+    } else if (displayValue.length < 16) {
+      displayValue += digit;
+    }
+    renderCalculator();
+  }
+
+  function calcDecimal() {
+    if (resetDisplay || displayValue === "Error") {
+      displayValue = "0.";
+      resetDisplay = false;
+    } else if (!displayValue.includes(".") && displayValue.length < 16) {
+      displayValue += ".";
+    }
+    renderCalculator();
+  }
+
+  function calcSign() {
+    if (displayValue === "0" || displayValue === "Error") return;
+    displayValue = displayValue.startsWith("-")
+      ? displayValue.slice(1)
+      : "-" + displayValue;
+    renderCalculator();
+  }
+
+  function calcClear() {
+    displayValue = "0";
+    storedValue = null;
+    pendingOperator = null;
+    resetDisplay = false;
+    renderCalculator();
+  }
+
+  function calcBackspace() {
+    if (resetDisplay || displayValue === "Error") {
+      displayValue = "0";
+      resetDisplay = false;
+    } else {
+      displayValue = displayValue.slice(0, -1) || "0";
+      if (displayValue === "-") displayValue = "0";
+    }
+    renderCalculator();
+  }
+
+  function performCalculation(first, operator, second) {
+    switch (operator) {
+      case "+": return first + second;
+      case "-": return first - second;
+      case "*": return first * second;
+      case "/": return second === 0 ? null : first / second;
+      default: return second / 100;
+    }
+  }
+
+  function calcOperator(operator) {
+    const current = Number(displayValue);
+
+    if (operator === "%") {
+      displayValue = String(current / 100);
+      resetDisplay = true;
+      renderCalculator();
+      return;
+    }
+
+    if (displayValue === "Error") return;
+
+    if (pendingOperator && !resetDisplay) {
+      const result = performCalculation(storedValue, pendingOperator, current);
+
+      if (result === null || !Number.isFinite(result)) {
+        displayValue = "Error";
+        storedValue = null;
+        pendingOperator = null;
+        resetDisplay = true;
+        renderCalculator();
+        return;
+      }
+
+      displayValue = String(Number(result.toPrecision(12)));
+    }
+
+    storedValue = Number(displayValue);
+    pendingOperator = operator;
+    resetDisplay = true;
+    renderCalculator();
+  }
+
+  function calcEquals() {
+    if (!pendingOperator || storedValue === null || displayValue === "Error") return;
+
+    const result = performCalculation(
+      storedValue, pendingOperator, Number(displayValue)
+    );
+
+    if (result === null || !Number.isFinite(result)) {
+      displayValue = "Error";
+    } else {
+      displayValue = String(Number(result.toPrecision(12)));
+    }
+
+    storedValue = null;
+    pendingOperator = null;
+    resetDisplay = true;
+    renderCalculator();
+  }
+
+  const answers = {
+    q1: "b",
+    q2: "b",
+    q3: "a",
+    q4: "c",
+    q5: "b"
+  };
+
+  const quiz = document.getElementById("mathQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+
+    for (const [question, answer] of Object.entries(answers)) {
+      const selected = quiz.querySelector(
+        `input[name="${question}"]:checked`
+      );
+      if (selected && selected.value === answer) score++;
+    }
+
+    showResult(
+      "quizResult",
+      `Your score: ${score}/5. ` +
+      (score === 5 ? "Excellent work!" : "Review the lessons and try again.")
+    );
+  });
+
+  quiz.addEventListener("reset", function() {
+    showResult("quizResult", "Your score appears here.");
+  });
+</script>
+</body>
+</html>
