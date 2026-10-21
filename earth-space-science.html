@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Earth & Space Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg: #080d1b;
+      --panel: #111a30;
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --text: #eef3ff;
+      --muted: #aab7d1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #080d1bf5;
+      border-bottom: 1px solid #293754;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      padding: 65px 0;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #30265c, transparent 72%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 6vw, 3.7rem);
+      line-height: 1.2;
+    }
+
+    .hero h1 span { color: var(--cyan); }
+
+    .hero p, .muted { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid #465578;
+      border-radius: 30px;
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--cyan);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 28px 0;
+      scroll-margin-top: 85px;
+    }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid #293754;
+      border-radius: 13px;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .card p { color: var(--muted); }
+
+    .formula {
+      display: block;
+      margin-top: 12px;
+      padding: 10px;
+      background: #080f22;
+      color: var(--cyan);
+      border-radius: 8px;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #080f22;
+      color: white;
+      font: inherit;
+    }
+
+    .result {
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      background: #0b2030;
+      overflow-wrap: anywhere;
+    }
+
+    .error { color: #ffaaaa; }
+
+    .example {
+      padding: 14px 18px;
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+      margin: 14px 0;
+    }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #293754;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #293754;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="lab.html">All Labs</a>
+      <a href="physics-lab.html">Physics</a>
+      <a href="mathematics-lab.html">Mathematics</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="tag">SCIENCE LAB 05</span>
+      <h1>Explore <span>Earth & Space</span></h1>
+      <p>Discover our planet, the Solar System, stars, weather, rocks and the universe.</p>
+      <a class="button" href="#topics">Explore Topics</a>
+      <a class="button" href="#quiz">Take the Quiz</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section id="topics">
+      <h2>Explore the Universe</h2>
+
+      <div class="grid">
+        <article class="card">
+          <h3>🌍 Earth's Structure</h3>
+          <p>Earth has a crust, mantle, outer core and inner core. These layers differ in composition and physical state.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌙 The Solar System</h3>
+          <p>Eight planets orbit the Sun. Gravity keeps planets, moons and many other objects in orbit.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌦️ Weather & Climate</h3>
+          <p>Weather describes short-term atmospheric conditions. Climate describes patterns over long periods.</p>
+        </article>
+
+        <article class="card">
+          <h3>🪨 Rocks & Minerals</h3>
+          <p>Igneous rocks form from cooled magma or lava, sedimentary rocks from accumulated material, and metamorphic rocks from changed existing rocks.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌗 Day & Night</h3>
+          <p>Earth's rotation causes the regular cycle of day and night. One rotation takes approximately 24 hours.</p>
+        </article>
+
+        <article class="card">
+          <h3>⭐ Stars & Galaxies</h3>
+          <p>Stars produce energy through nuclear fusion. Our Solar System belongs to the Milky Way galaxy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="earth">
+      <h2>1. Understanding Earth</h2>
+      <div class="card">
+        <h3>The water cycle</h3>
+        <p>
+          Energy from the Sun drives evaporation. Water vapour cools and condenses
+          into clouds, then returns to Earth's surface through precipitation.
+          Water can collect in rivers, lakes and oceans or enter the ground.
+        </p>
+
+        <h3>Earth's movements</h3>
+        <ul>
+          <li><strong>Rotation:</strong> Earth spins on its axis, producing day and night.</li>
+          <li><strong>Revolution:</strong> Earth travels around the Sun in about 365.25 days.</li>
+          <li><strong>Seasons:</strong> Earth's tilted axis, combined with its orbit, causes seasonal changes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="solar">
+      <h2>2. The Solar System</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>☿ Mercury</h3>
+          <p>The smallest planet and the closest to the Sun.</p>
+        </article>
+        <article class="card">
+          <h3>♀ Venus</h3>
+          <p>Has a very dense atmosphere and an extremely hot surface.</p>
+        </article>
+        <article class="card">
+          <h3>🌍 Earth</h3>
+          <p>Our home planet, with abundant surface liquid water.</p>
+        </article>
+        <article class="card">
+          <h3>🔴 Mars</h3>
+          <p>A rocky planet often called the Red Planet.</p>
+        </article>
+        <article class="card">
+          <h3>🟠 Jupiter</h3>
+          <p>The largest planet in the Solar System.</p>
+        </article>
+        <article class="card">
+          <h3>🪐 Saturn</h3>
+          <p>A gas giant famous for its prominent ring system.</p>
+        </article>
+        <article class="card">
+          <h3>🔵 Uranus</h3>
+          <p>An ice giant with an unusually tilted axis of rotation.</p>
+        </article>
+        <article class="card">
+          <h3>🌊 Neptune</h3>
+          <p>A distant ice giant with very strong winds.</p>
+        </article>
+        <article class="card">
+          <h3>☀️ The Sun</h3>
+          <p>The star at the centre of our Solar System and its main energy source.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="distance">
+      <h2>3. Space Distance Calculator</h2>
+      <p class="muted">
+        Light travels approximately 299,792 kilometres per second in a vacuum.
+        This tool estimates how long light takes to travel a chosen distance.
+      </p>
+
+      <div class="card">
+        <div class="field">
+          <label for="distanceValue">Distance in kilometres</label>
+          <input id="distanceValue" type="number" min="0" step="any" placeholder="e.g. 384400">
+        </div>
+
+        <button class="button" type="button" onclick="calculateLightTime()">Calculate Light Travel Time</button>
+        <div class="result" id="lightResult" aria-live="polite">Your answer appears here.</div>
+
+        <div class="example">
+          <strong>Worked example:</strong>
+          <p>For a distance of 384,400 km, light takes about 1.28 seconds to travel that distance.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gravity">
+      <h2>4. Gravity Calculator</h2>
+      <p>
+        Weight is the force of gravity on an object. It depends on the object's
+        mass and the local gravitational field strength.
+      </p>
+      <span class="formula">Weight = mass × gravitational field strength</span>
+
+      <div class="card">
+        <div class="field">
+          <label for="massValue">Mass in kilograms (kg)</label>
+          <input id="massValue" type="number" min="0" step="any" placeholder="e.g. 50">
+        </div>
+
+        <div class="field">
+          <label for="gravityValue">Gravity in m/s²</label>
+          <select id="gravityValue">
+            <option value="9.81">Earth — 9.81 m/s²</option>
+            <option value="1.62">Moon — 1.62 m/s²</option>
+            <option value="3.71">Mars — 3.71 m/s²</option>
+            <option value="24.79">Jupiter — 24.79 m/s²</option>
+          </select>
+        </div>
+
+        <button class="button" type="button" onclick="calculateWeight()">Calculate Weight</button>
+        <div class="result" id="weightResult" aria-live="polite">Your answer appears here.</div>
+      </div>
+    </section>
+
+    <section id="weather">
+      <h2>5. Weather & Climate</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Temperature</h3>
+          <p>Measures how hot or cold something is. Common units include degrees Celsius and kelvin.</p>
+          <span class="formula">K = °C + 273.15</span>
+        </article>
+
+        <article class="card">
+          <h3>Rainfall</h3>
+          <p>Rainfall measurements show how much precipitation has fallen over a period.</p>
+          <span class="formula">Rainfall is commonly measured in mm</span>
+        </article>
+
+        <article class="card">
+          <h3>Wind</h3>
+          <p>Wind is moving air. Wind speed and direction help meteorologists understand weather.</p>
+          <span class="formula">Speed = distance ÷ time</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="temperature">
+      <h2>6. Temperature Converter</h2>
+      <div class="card">
+        <div class="field">
+          <label for="temperatureValue">Temperature value</label>
+          <input id="temperatureValue" type="number" step="any" placeholder="e.g. 25">
+        </div>
+
+        <div class="field">
+          <label for="temperatureUnit">Convert from</label>
+          <select id="temperatureUnit">
+            <option value="C">Celsius (°C)</option>
+            <option value="F">Fahrenheit (°F)</option>
+            <option value="K">Kelvin (K)</option>
+          </select>
+        </div>
+
+        <button class="button" type="button" onclick="convertTemperature()">Convert Temperature</button>
+        <div class="result" id="temperatureResult" aria-live="polite">Your answer appears here.</div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>Earth & Space Quiz</h2>
+      <p class="muted">Answer all five questions and check your score.</p>
+
+      <form id="spaceQuiz">
+        <div class="question">
+          <p>1. Which star is at the centre of our Solar System?</p>
+          <label><input type="radio" name="q1" value="a"> Polaris</label>
+          <label><input type="radio" name="q1" value="b"> The Sun</label>
+          <label><input type="radio" name="q1" value="c"> Sirius</label>
+        </div>
+
+        <div class="question">
+          <p>2. What causes day and night on Earth?</p>
+          <label><input type="radio" name="q2" value="a"> Earth's rotation</label>
+          <label><input type="radio" name="q2" value="b"> Earth's revolution alone</label>
+          <label><input type="radio" name="q2" value="c"> The Moon's rotation</label>
+        </div>
+
+        <div class="question">
+          <p>3. Which planet is the largest in our Solar System?</p>
+          <label><input type="radio" name="q3" value="a"> Earth</label>
+          <label><input type="radio" name="q3" value="b"> Mars</label>
+          <label><input type="radio" name="q3" value="c"> Jupiter</label>
+        </div>
+
+        <div class="question">
+          <p>4. What is the approximate speed of light in a vacuum?</p>
+          <label><input type="radio" name="q4" value="a"> 300 km/s</label>
+          <label><input type="radio" name="q4" value="b"> 300,000 km/s</label>
+          <label><input type="radio" name="q4" value="c"> 3,000 km/s</label>
+        </div>
+
+        <div class="question">
+          <p>5. Which process changes water vapour into liquid water?</p>
+          <label><input type="radio" name="q5" value="a"> Evaporation</label>
+          <label><input type="radio" name="q5" value="b"> Melting</label>
+          <label><input type="radio" name="q5" value="c"> Condensation</label>
+        </div>
+
+        <button class="button" type="submit">Check Answers</button>
+        <button class="button" type="reset">Reset Quiz</button>
+      </form>
+
+      <div class="result" id="quizResult" aria-live="polite">Your score appears here.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI | Learn • Explore • Discover</p>
+    <a href="lab.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  function showResult(id, message, isError = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.classList.toggle("error", isError);
+  }
+
+  function getNumber(id, resultId) {
+    const input = document.getElementById(id);
+
+    if (input.value.trim() === "") {
+      showResult(resultId, "Please enter a number.", true);
+      return null;
+    }
+
+    const value = Number(input.value);
+
+    if (!Number.isFinite(value)) {
+      showResult(resultId, "Please enter a valid number.", true);
+      return null;
+    }
+
+    return value;
+  }
+
+  function calculateLightTime() {
+    const distance = getNumber("distanceValue", "lightResult");
+    if (distance === null) return;
+
+    if (distance < 0) {
+      showResult("lightResult", "Distance cannot be negative.", true);
+      return;
+    }
+
+    const seconds = distance / 299792.458;
+
+    let timeText;
+    if (seconds < 60) {
+      timeText = `${seconds.toFixed(4)} seconds`;
+    } else if (seconds < 3600) {
+      timeText = `${(seconds / 60).toFixed(4)} minutes`;
+    } else {
+      timeText = `${(seconds / 3600).toFixed(4)} hours`;
+    }
+
+    showResult("lightResult", `Light travel time: ${timeText}.`);
+  }
+
+  function calculateWeight() {
+    const mass = getNumber("massValue", "weightResult");
+    if (mass === null) return;
+
+    if (mass < 0) {
+      showResult("weightResult", "Mass cannot be negative.", true);
+      return;
+    }
+
+    const gravity = Number(document.getElementById("gravityValue").value);
+    const weight = mass * gravity;
+
+    showResult(
+      "weightResult",
+      `Weight = ${weight.toFixed(3)} newtons (N). Your mass remains ${mass} kg.`
+    );
+  }
+
+  function convertTemperature() {
+    const temperature = getNumber("temperatureValue", "temperatureResult");
+    if (temperature === null) return;
+
+    const unit = document.getElementById("temperatureUnit").value;
+    let celsius;
+
+    if (unit === "C") {
+      celsius = temperature;
+    } else if (unit === "F") {
+      celsius = (temperature - 32) * 5 / 9;
+    } else {
+      celsius = temperature - 273.15;
+    }
+
+    if (celsius < -273.15) {
+      showResult(
+        "temperatureResult",
+        "That value is below absolute zero, which is the physical lower limit of temperature.",
+        true
+      );
+      return;
+    }
+
+    const fahrenheit = celsius * 9 / 5 + 32;
+    const kelvin = celsius + 273.15;
+
+    showResult(
+      "temperatureResult",
+      `${celsius.toFixed(2)} °C | ${fahrenheit.toFixed(2)} °F | ${kelvin.toFixed(2)} K`
+    );
+  }
+
+  const correctAnswers = {
+    q1: "b",
+    q2: "a",
+    q3: "c",
+    q4: "b",
+    q5: "c"
+  };
+
+  const quiz = document.getElementById("spaceQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+    let unanswered = 0;
+
+    for (const [question, correct] of Object.entries(correctAnswers)) {
+      const chosen = quiz.querySelector(
+        `input[name="${question}"]:checked`
+      );
+
+      if (!chosen) {
+        unanswered++;
+      } else if (chosen.value === correct) {
+        score++;
+      }
+    }
+
+    showResult(
+      "quizResult",
+      `Your score: ${score}/5. ` +
+      (unanswered ? `${unanswered} question(s) unanswered. ` : "") +
+      (score === 5 ? "Excellent work!" : "Review the lessons and try again.")
+    );
+  });
+
+  quiz.addEventListener("reset", function() {
+    showResult("quizResult", "Your score appears here.");
+  });
+</script>
+</body>
+</html>
