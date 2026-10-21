@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental Science Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg: #080d1b;
+      --panel: #111a30;
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --green: #4ade80;
+      --text: #eef3ff;
+      --muted: #aab7d1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #080d1bf5;
+      border-bottom: 1px solid #293754;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      padding: 60px 0;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #174c45, transparent 72%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 6vw, 3.5rem);
+      line-height: 1.2;
+    }
+
+    .hero h1 span { color: var(--green); }
+
+    .hero p, .muted, .card p { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid #397466;
+      border-radius: 30px;
+      color: var(--green);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--green);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 28px 0;
+      scroll-margin-top: 85px;
+    }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid #293754;
+      border-radius: 13px;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .formula {
+      display: block;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #080f22;
+      color: var(--green);
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #080f22;
+      color: white;
+      font: inherit;
+    }
+
+    .result {
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      background: #0b2030;
+      overflow-wrap: anywhere;
+    }
+
+    .example {
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+    }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #293754;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #293754;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="lab.html">All Labs</a>
+      <a href="biology-lab.html">Biology</a>
+      <a href="earth-space-lab.html">Earth & Space</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="tag">SCIENCE LAB 07</span>
+      <h1>Protect Our <span>Environment</span></h1>
+      <p>Learn about ecosystems, pollution, climate change, conservation and sustainable living.</p>
+      <a class="button" href="#topics">Explore Topics</a>
+      <a class="button" href="#calculators">Try the Calculators</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section id="topics">
+      <h2>Explore Environmental Science</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>🌳 Ecosystems</h3>
+          <p>An ecosystem includes living organisms and the non-living environment interacting in a particular area.</p>
+        </article>
+
+        <article class="card">
+          <h3>💨 Air Pollution</h3>
+          <p>Smoke, dust and harmful gases can affect human health, wildlife and the atmosphere.</p>
+        </article>
+
+        <article class="card">
+          <h3>💧 Water Pollution</h3>
+          <p>Wastewater, chemicals and litter can contaminate rivers, lakes and groundwater.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌡️ Climate Change</h3>
+          <p>Human activities, especially greenhouse-gas emissions, are driving long-term global warming.</p>
+        </article>
+
+        <article class="card">
+          <h3>♻️ Waste Management</h3>
+          <p>Reduce waste first, reuse items where possible, and recycle suitable materials.</p>
+        </article>
+
+        <article class="card">
+          <h3>🦋 Biodiversity</h3>
+          <p>Biodiversity is the variety of life. Protecting habitats helps species and ecosystems survive.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="ecosystems">
+      <h2>1. Ecosystems and Food Chains</h2>
+      <div class="card">
+        <p>
+          Organisms depend on one another and on resources such as sunlight,
+          water, air and nutrients. A change in one part of an ecosystem can
+          affect other parts.
+        </p>
+
+        <h3>Example food chain</h3>
+        <span class="formula">Sun → Grass → Grasshopper → Frog → Snake</span>
+
+        <ul>
+          <li><strong>Producers:</strong> make their own food, usually through photosynthesis.</li>
+          <li><strong>Consumers:</strong> obtain energy by eating other organisms.</li>
+          <li><strong>Decomposers:</strong> break down dead material and recycle nutrients.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="climate">
+      <h2>2. Climate Change</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Greenhouse gases</h3>
+          <p>Carbon dioxide, methane and other greenhouse gases trap heat in Earth's climate system.</p>
+        </article>
+
+        <article class="card">
+          <h3>Possible impacts</h3>
+          <p>Impacts include changing rainfall patterns, heat extremes, rising sea levels and risks to ecosystems.</p>
+        </article>
+
+        <article class="card">
+          <h3>Taking action</h3>
+          <p>Saving energy, protecting forests, reducing waste and choosing lower-emission transport can help.</p>
+        </article>
+      </div>
+
+      <div class="example">
+        <strong>Remember:</strong> weather is the condition of the atmosphere over short periods;
+        climate is the pattern of weather over many years.
+      </div>
+    </section>
+
+    <section id="calculators">
+      <h2>3. Environmental Calculators</h2>
+
+      <div class="grid">
+        <article class="card">
+          <h3>♻️ Waste Reduction Calculator</h3>
+          <p>Estimate how much waste you avoid by reducing the amount sent to disposal.</p>
+
+          <div class="field">
+            <label for="wasteBefore">Waste before reduction (kg/week)</label>
+            <input id="wasteBefore" type="number" min="0" step="any" placeholder="e.g. 20">
+          </div>
+
+          <div class="field">
+            <label for="wasteAfter">Waste after reduction (kg/week)</label>
+            <input id="wasteAfter" type="number" min="0" step="any" placeholder="e.g. 12">
+          </div>
+
+          <button class="button" type="button" onclick="calculateWaste()">Calculate</button>
+          <div class="result" id="wasteResult" aria-live="polite">Your result appears here.</div>
+        </article>
+
+        <article class="card">
+          <h3>🚰 Water Use Calculator</h3>
+          <p>Estimate daily water use for an activity, based on the volume used each time.</p>
+
+          <div class="field">
+            <label for="waterPerUse">Litres per use</label>
+            <input id="waterPerUse" type="number" min="0" step="any" placeholder="e.g. 8">
+          </div>
+
+          <div class="field">
+            <label for="waterUses">Uses per day</label>
+            <input id="waterUses" type="number" min="0" step="any" placeholder="e.g. 5">
+          </div>
+
+          <button class="button" type="button" onclick="calculateWater()">Calculate</button>
+          <div class="result" id="waterResult" aria-live="polite">Your result appears here.</div>
+        </article>
+
+        <article class="card">
+          <h3>🌱 Simple Carbon Estimate</h3>
+          <p>
+            Enter an estimated monthly electricity use. This calculates electricity-related
+            emissions using a sample factor, not an official Malawi-specific rate.
+          </p>
+
+          <div class="field">
+            <label for="electricity">Electricity used (kWh/month)</label>
+            <input id="electricity" type="number" min="0" step="any" placeholder="e.g. 100">
+          </div>
+
+          <div class="field">
+            <label for="emissionFactor">Emission factor (kg CO₂e/kWh)</label>
+            <input id="emissionFactor" type="number" min="0" step="any" value="0.5">
+          </div>
+
+          <button class="button" type="button" onclick="calculateCarbon()">Estimate Emissions</button>
+          <div class="result" id="carbonResult" aria-live="polite">Your result appears here.</div>
+        </article>
+      </div>
+
+      <p class="muted">
+        These are educational estimates. Actual emissions depend on the electricity supply,
+        activity, location and measurement method.
+      </p>
+    </section>
+
+    <section id="malawi">
+      <h2>4. Environmental Challenges in Malawi</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>🌲 Deforestation</h3>
+          <p>Forest loss can reduce habitats and increase soil erosion. Tree planting works best alongside protecting existing forests.</p>
+        </article>
+
+        <article class="card">
+          <h3>🌧️ Soil Erosion</h3>
+          <p>Heavy rain, loss of vegetation and unsuitable land use can carry fertile soil away. Ground cover and contour farming can help.</p>
+        </article>
+
+        <article class="card">
+          <h3>🏞️ Water Protection</h3>
+          <p>Keeping rubbish and hazardous waste out of rivers and lakes helps protect water quality and aquatic life.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>Environmental Science Quiz</h2>
+
+      <form id="environmentQuiz">
+        <div class="question">
+          <p>1. What is an ecosystem?</p>
+          <label><input type="radio" name="q1" value="a"> Only animals in a forest</label>
+          <label><input type="radio" name="q1" value="b"> Living organisms interacting with their environment</label>
+          <label><input type="radio" name="q1" value="c"> Only rocks and soil</label>
+        </div>
+
+        <div class="question">
+          <p>2. Which is a greenhouse gas?</p>
+          <label><input type="radio" name="q2" value="a"> Carbon dioxide</label>
+          <label><input type="radio" name="q2" value="b"> Gold</label>
+          <label><input type="radio" name="q2" value="c"> Sand</label>
+        </div>
+
+        <div class="question">
+          <p>3. What should generally be prioritised in waste management?</p>
+          <label><input type="radio" name="q3" value="a"> Producing more waste</label>
+          <label><input type="radio" name="q3" value="b"> Burning all rubbish</label>
+          <label><input type="radio" name="q3" value="c"> Reducing waste at its source</label>
+        </div>
+
+        <div class="question">
+          <p>4. What can help reduce soil erosion?</p>
+          <label><input type="radio" name="q4" value="a"> Removing all vegetation</label>
+          <label><input type="radio" name="q4" value="b"> Maintaining ground cover</label>
+          <label><input type="radio" name="q4" value="c"> Leaving soil exposed</label>
+        </div>
+
+        <div class="question">
+          <p>5. What does biodiversity mean?</p>
+          <label><input type="radio" name="q5" value="a"> The variety of life</label>
+          <label><input type="radio" name="q5" value="b"> The amount of rubbish</label>
+          <label><input type="radio" name="q5" value="c"> The temperature of water</label>
+        </div>
+
+        <button class="button" type="submit">Check Answers</button>
+        <button class="button" type="reset">Reset Quiz</button>
+      </form>
+
+      <div class="result" id="quizResult" aria-live="polite">Your score appears here.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI | Learn • Explore • Protect</p>
+    <a href="lab.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  function readNumber(id, resultId) {
+    const input = document.getElementById(id);
+
+    if (input.value.trim() === "") {
+      showResult(resultId, "Please fill in all fields.", true);
+      return null;
+    }
+
+    const number = Number(input.value);
+
+    if (!Number.isFinite(number) || number < 0) {
+      showResult(resultId, "Enter a valid number that is zero or greater.", true);
+      return null;
+    }
+
+    return number;
+  }
+
+  function showResult(id, message, isError = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.classList.toggle("error", isError);
+  }
+
+  function calculateWaste() {
+    const before = readNumber("wasteBefore", "wasteResult");
+    if (before === null) return;
+
+    const after = readNumber("wasteAfter", "wasteResult");
+    if (after === null) return;
+
+    if (after > before) {
+      showResult("wasteResult", "Waste after reduction cannot exceed the starting amount for this calculation.", true);
+      return;
+    }
+
+    const saved = before - after;
+    const percent = before === 0 ? 0 : saved / before * 100;
+
+    showResult(
+      "wasteResult",
+      `Waste avoided: ${saved.toFixed(2)} kg/week (${percent.toFixed(1)}% reduction).`
+    );
+  }
+
+  function calculateWater() {
+    const litres = readNumber("waterPerUse", "waterResult");
+    if (litres === null) return;
+
+    const uses = readNumber("waterUses", "waterResult");
+    if (uses === null) return;
+
+    const daily = litres * uses;
+
+    showResult(
+      "waterResult",
+      `Estimated water use: ${daily.toFixed(2)} litres/day, or ${(daily * 7).toFixed(2)} litres/week.`
+    );
+  }
+
+  function calculateCarbon() {
+    const electricity = readNumber("electricity", "carbonResult");
+    if (electricity === null) return;
+
+    const factor = readNumber("emissionFactor", "carbonResult");
+    if (factor === null) return;
+
+    const emissions = electricity * factor;
+
+    showResult(
+      "carbonResult",
+      `Estimated electricity-related emissions: ${emissions.toFixed(2)} kg CO₂e/month. This is an estimate, not an official local emissions figure.`
+    );
+  }
+
+  const answers = {
+    q1: "b",
+    q2: "a",
+    q3: "c",
+    q4: "b",
+    q5: "a"
+  };
+
+  const quiz = document.getElementById("environmentQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+    let unanswered = 0;
+
+    for (const [question, correct] of Object.entries(answers)) {
+      const selected = quiz.querySelector(
+        `input[name="${question}"]:checked`
+      );
+
+      if (!selected) unanswered++;
+      else if (selected.value === correct) score++;
+    }
+
+    showResult(
+      "quizResult",
+      `Your score: ${score}/5. ` +
+      (unanswered ? `${unanswered} question(s) unanswered. ` : "") +
+      (score === 5 ? "Excellent work!" : "Review the lessons and try again.")
+    );
+  });
+
+  quiz.addEventListener("reset", function() {
+    showResult("quizResult", "Your score appears here.");
+  });
+</script>
+</body>
+</html>

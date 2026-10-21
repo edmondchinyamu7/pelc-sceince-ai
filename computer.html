@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Science Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg: #080d1b;
+      --panel: #111a30;
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --text: #eef3ff;
+      --muted: #aab7d1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #080d1bf5;
+      border-bottom: 1px solid #293754;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      padding: 60px 0;
+      text-align: center;
+      background: radial-gradient(ellipse at top, #30265c, transparent 72%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.1rem, 6vw, 3.6rem);
+      line-height: 1.2;
+    }
+
+    .hero h1 span { color: var(--cyan); }
+
+    .muted, .card p { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border: 1px solid #465578;
+      border-radius: 30px;
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--cyan);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .button:hover { filter: brightness(1.1); }
+
+    section {
+      padding: 28px 0;
+      scroll-margin-top: 80px;
+    }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 20px;
+      background: var(--panel);
+      border: 1px solid #293754;
+      border-radius: 13px;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .formula {
+      display: block;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 8px;
+      background: #080f22;
+      color: var(--cyan);
+      overflow-wrap: anywhere;
+    }
+
+    .code {
+      padding: 16px;
+      background: #050914;
+      border: 1px solid #293754;
+      border-radius: 10px;
+      color: #b8f7d4;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font: 14px/1.7 Consolas, monospace;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      background: #080f22;
+      color: white;
+      font: inherit;
+    }
+
+    .field textarea {
+      min-height: 190px;
+      resize: vertical;
+      font-family: Consolas, monospace;
+    }
+
+    .result {
+      padding: 12px;
+      margin-top: 12px;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      background: #0b2030;
+      overflow-wrap: anywhere;
+    }
+
+    .example {
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+    }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #293754;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #293754;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="lab.html">All Labs</a>
+      <a href="physics-lab.html">Physics</a>
+      <a href="mathematics-lab.html">Mathematics</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="tag">SCIENCE LAB 06</span>
+      <h1>Enter the <span>Computer Science Lab</span></h1>
+      <p>Learn programming, algorithms, web development and the logic behind computers.</p>
+      <a class="button" href="#lessons">Start Learning</a>
+      <a class="button" href="#playground">Try Coding</a>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <section id="lessons">
+      <h2>Explore Computer Science</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>💻 Programming</h3>
+          <p>Write instructions that a computer can execute. Common languages include JavaScript, Python, Java and C.</p>
+        </article>
+
+        <article class="card">
+          <h3>🧠 Algorithms</h3>
+          <p>An algorithm is a sequence of steps for solving a problem.</p>
+          <span class="formula">Input → Process → Output</span>
+        </article>
+
+        <article class="card">
+          <h3>🌐 Web Development</h3>
+          <p>HTML structures a webpage, CSS styles it, and JavaScript adds behaviour.</p>
+        </article>
+
+        <article class="card">
+          <h3>🗃️ Data & Variables</h3>
+          <p>Variables store information that a program can use and update.</p>
+        </article>
+
+        <article class="card">
+          <h3>🔁 Loops & Conditions</h3>
+          <p>Conditions make decisions; loops repeat instructions.</p>
+        </article>
+
+        <article class="card">
+          <h3>🔐 Cybersecurity</h3>
+          <p>Learn safe computing, strong authentication, software updates and responsible security practices.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="javascript">
+      <h2>1. JavaScript Basics</h2>
+      <p>JavaScript lets a webpage respond to clicks, process information and update content.</p>
+
+      <div class="card">
+        <h3>Variables</h3>
+        <p>A variable stores a value. Use <code>const</code> for a value that won't be reassigned and <code>let</code> for one that may change.</p>
+        <pre class="code">const company = "PELC";
+let score = 0;
+
+score = score + 1;
+
+console.log(company);
+console.log(score);</pre>
+
+        <h3>Functions</h3>
+        <p>A function groups instructions so you can run them when needed.</p>
+        <pre class="code">function greet(name) {
+  return "Hello, " + name + "!";
+}
+
+console.log(greet("Student"));</pre>
+
+        <h3>Conditions</h3>
+        <pre class="code">const mark = 75;
+
+if (mark >= 50) {
+  console.log("Pass");
+} else {
+  console.log("Try again");
+}</pre>
+      </div>
+    </section>
+
+    <section id="playground">
+      <h2>2. JavaScript Playground</h2>
+      <p class="muted">
+        Edit the example and press Run. This beginner playground supports
+        basic JavaScript. Output is shown below.
+      </p>
+
+      <div class="card">
+        <div class="field">
+          <label for="codeEditor">Your JavaScript code</label>
+          <textarea id="codeEditor" spellcheck="false">const name = "PELC Student";
+const a = 10;
+const b = 5;
+
+console.log("Welcome, " + name);
+console.log("Sum:", a + b);
+console.log("Product:", a * b);</textarea>
+        </div>
+
+        <button class="button" id="runCode" type="button">▶ Run Code</button>
+        <button class="button" id="resetCode" type="button">Reset Example</button>
+
+        <h3>Output</h3>
+        <pre class="code" id="codeOutput" aria-live="polite">Your output will appear here.</pre>
+        <p class="muted">
+          Safety note: this playground runs your code in an isolated browser
+          frame. Avoid entering private information.
+        </p>
+      </div>
+    </section>
+
+    <section id="algorithms">
+      <h2>3. Algorithms & Problem Solving</h2>
+      <div class="example">
+        <strong>Worked example: Find the larger of two numbers</strong>
+        <ol>
+          <li>Read two numbers.</li>
+          <li>Compare the numbers.</li>
+          <li>Display the larger number, or say they are equal.</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h3>Compare Two Numbers</h3>
+
+        <div class="field">
+          <label for="numberA">First number</label>
+          <input id="numberA" type="number" step="any" placeholder="e.g. 12">
+        </div>
+
+        <div class="field">
+          <label for="numberB">Second number</label>
+          <input id="numberB" type="number" step="any" placeholder="e.g. 8">
+        </div>
+
+        <button class="button" id="compareNumbers" type="button">Compare</button>
+        <div class="result" id="compareResult" aria-live="polite">Your answer appears here.</div>
+      </div>
+    </section>
+
+    <section id="web">
+      <h2>4. How Websites Work</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>HTML</h3>
+          <p>Creates the structure and content of the page.</p>
+          <pre class="code">&lt;h1&gt;Hello world&lt;/h1&gt;</pre>
+        </article>
+
+        <article class="card">
+          <h3>CSS</h3>
+          <p>Controls colours, layout, spacing and responsive design.</p>
+          <pre class="code">h1 {
+  color: cyan;
+}</pre>
+        </article>
+
+        <article class="card">
+          <h3>JavaScript</h3>
+          <p>Adds interactive behaviour to a website.</p>
+          <pre class="code">button.addEventListener(
+  "click",
+  () => alert("Hello!")
+);</pre>
+        </article>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2>Computer Science Quiz</h2>
+
+      <form id="csQuiz">
+        <div class="question">
+          <p>1. Which language structures the content of a webpage?</p>
+          <label><input type="radio" name="q1" value="a"> CSS</label>
+          <label><input type="radio" name="q1" value="b"> HTML</label>
+          <label><input type="radio" name="q1" value="c"> SQL</label>
+        </div>
+
+        <div class="question">
+          <p>2. Which JavaScript keyword declares a variable that can be reassigned?</p>
+          <label><input type="radio" name="q2" value="a"> let</label>
+          <label><input type="radio" name="q2" value="b"> heading</label>
+          <label><input type="radio" name="q2" value="c"> style</label>
+        </div>
+
+        <div class="question">
+          <p>3. What is an algorithm?</p>
+          <label><input type="radio" name="q3" value="a"> A computer screen</label>
+          <label><input type="radio" name="q3" value="b"> A type of cable</label>
+          <label><input type="radio" name="q3" value="c"> A sequence of steps to solve a problem</label>
+        </div>
+
+        <div class="question">
+          <p>4. What is the purpose of CSS?</p>
+          <label><input type="radio" name="q4" value="a"> Store passwords</label>
+          <label><input type="radio" name="q4" value="b"> Style webpage content</label>
+          <label><input type="radio" name="q4" value="c"> Replace the computer operating system</label>
+        </div>
+
+        <div class="question">
+          <p>5. Which is a good cybersecurity habit?</p>
+          <label><input type="radio" name="q5" value="a"> Reuse one password everywhere</label>
+          <label><input type="radio" name="q5" value="b"> Share passwords with strangers</label>
+          <label><input type="radio" name="q5" value="c"> Use unique passwords and enable multifactor authentication</label>
+        </div>
+
+        <button class="button" type="submit">Check Answers</button>
+        <button class="button" type="reset">Reset Quiz</button>
+      </form>
+
+      <div class="result" id="quizResult" aria-live="polite">Your score appears here.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI | Learn • Explore • Discover</p>
+    <a href="lab.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  const editor = document.getElementById("codeEditor");
+  const output = document.getElementById("codeOutput");
+
+  const starterCode = editor.value;
+
+  document.getElementById("runCode").addEventListener("click", function() {
+    output.textContent = "Running...";
+
+    // Execute the submitted JavaScript inside a separate sandboxed iframe.
+    const frame = document.createElement("iframe");
+    frame.setAttribute("sandbox", "allow-scripts");
+    frame.setAttribute("title", "JavaScript code execution sandbox");
+    frame.style.display = "none";
+
+    const source = editor.value;
+
+    // JSON encoding safely transfers the editor text into the iframe script.
+    const safeSource = JSON.stringify(source).replace(/</g, "\\u003c");
+
+    frame.srcdoc = `<!DOCTYPE html>
+<html>
+<body>
+<script>
+(function() {
+  const send = (message) => {
+    parent.postMessage({
+      type: "pelc-code-output",
+      text: String(message)
+    }, "*");
+  };
+
+  console.log = (...args) => send(args.map(String).join(" "));
+  console.error = (...args) => send("Error: " + args.map(String).join(" "));
+  console.warn = (...args) => send("Warning: " + args.map(String).join(" "));
+
+  try {
+    new Function("console", ${safeSource})(console);
+  } catch (error) {
+    send(error.name + ": " + error.message);
+  }
+})();
+<\/script>
+</body>
+</html>`;
+
+    document.body.appendChild(frame);
+
+    let received = false;
+
+    function receiveOutput(event) {
+      if (event.source !== frame.contentWindow) return;
+      if (!event.data || event.data.type !== "pelc-code-output") return;
+
+      received = true;
+      output.textContent += (output.textContent === "Running..." ? "" : "\n")
+        + event.data.text;
+    }
+
+    window.addEventListener("message", receiveOutput);
+
+    // Remove the temporary frame after execution.
+    setTimeout(function() {
+      window.removeEventListener("message", receiveOutput);
+      frame.remove();
+
+      if (!received) {
+        output.textContent = "Code finished. No console output was produced.";
+      }
+    }, 500);
+  });
+
+  document.getElementById("resetCode").addEventListener("click", function() {
+    editor.value = starterCode;
+    output.textContent = "Your output will appear here.";
+  });
+
+  document.getElementById("compareNumbers").addEventListener("click", function() {
+    const aInput = document.getElementById("numberA").value.trim();
+    const bInput = document.getElementById("numberB").value.trim();
+    const result = document.getElementById("compareResult");
+
+    if (aInput === "" || bInput === "") {
+      result.textContent = "Enter both numbers first.";
+      return;
+    }
+
+    const a = Number(aInput);
+    const b = Number(bInput);
+
+    if (!Number.isFinite(a) || !Number.isFinite(b)) {
+      result.textContent = "Please enter valid numbers.";
+    } else if (a > b) {
+      result.textContent = `${a} is larger than ${b}.`;
+    } else if (b > a) {
+      result.textContent = `${b} is larger than ${a}.`;
+    } else {
+      result.textContent = "Both numbers are equal.";
+    }
+  });
+
+  const answers = {
+    q1: "b",
+    q2: "a",
+    q3: "c",
+    q4: "b",
+    q5: "c"
+  };
+
+  const quiz = document.getElementById("csQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let score = 0;
+    let unanswered = 0;
+
+    for (const [question, correct] of Object.entries(answers)) {
+      const selected = quiz.querySelector(
+        `input[name="${question}"]:checked`
+      );
+
+      if (!selected) unanswered++;
+      else if (selected.value === correct) score++;
+    }
+
+    document.getElementById("quizResult").textContent =
+      `Your score: ${score}/5. ` +
+      (unanswered ? `${unanswered} question(s) unanswered. ` : "") +
+      (score === 5 ? "Excellent work!" : "Review the lessons and try again.");
+  });
+
+  quiz.addEventListener("reset", function() {
+    document.getElementById("quizResult").textContent = "Your score appears here.";
+  });
+</script>
+</body>
+</html>
