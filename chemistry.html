@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore chemistry with PELC Science AI through lessons, formulas, calculators and quizzes.">
+  <title>Chemistry Lab | PELC Science AI</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --cyan: #22d3ee;
+      --purple: #a78bfa;
+      --bg: #080d1b;
+      --panel: #111a30;
+      --muted: #a9b5ce;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: #e8efff;
+      font-family: Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--cyan); }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #080d1bf5;
+      border-bottom: 1px solid #273653;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 0;
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .brand span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .nav-links a { text-decoration: none; }
+
+    .hero {
+      text-align: center;
+      padding: 65px 0;
+      background: radial-gradient(ellipse at top, #30265c, transparent 70%);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1.15;
+    }
+
+    .hero h1 span {
+      color: var(--cyan);
+    }
+
+    .hero p, .muted, .card p { color: var(--muted); }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid #465578;
+      border-radius: 30px;
+      padding: 4px 12px;
+      color: var(--cyan);
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 16px;
+      margin: 5px 5px 5px 0;
+      border: 0;
+      border-radius: 8px;
+      background: var(--cyan);
+      color: #07101e;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    main { padding-bottom: 30px; }
+
+    section { padding: 28px 0; scroll-margin-top: 75px; }
+
+    h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid #273653;
+      border-radius: 13px;
+      padding: 19px;
+      min-width: 0;
+    }
+
+    .card h3 { margin-top: 0; }
+
+    .formula {
+      display: block;
+      padding: 10px;
+      margin-top: 12px;
+      background: #080f22;
+      color: var(--cyan);
+      text-align: center;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+      font-weight: bold;
+    }
+
+    .example {
+      border-left: 3px solid var(--purple);
+      background: #11172a;
+      padding: 13px 16px;
+      margin: 14px 0;
+    }
+
+    .field { margin: 12px 0; }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .field input, .field select {
+      width: 100%;
+      padding: 11px;
+      color: white;
+      background: #080f22;
+      border: 1px solid #465578;
+      border-radius: 7px;
+      font: inherit;
+    }
+
+    .result {
+      margin-top: 12px;
+      padding: 12px;
+      background: #0b2030;
+      border: 1px solid #1b6476;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .error { color: #ffaaaa; }
+
+    .question {
+      padding: 14px 0;
+      border-bottom: 1px solid #273653;
+    }
+
+    .question label {
+      display: block;
+      margin: 7px 0;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid #273653;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .hero { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html">PELC <span>SCIENCE AI</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="labs.html">All Labs</a>
+      <a href="physics-lab.html">Physics</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <span class="tag">SCIENCE LAB 02</span>
+    <h1>Explore the <span>Chemistry Lab</span></h1>
+    <p>Discover atoms, elements, chemical reactions, acids, bases and the science of matter.</p>
+    <a class="button" href="#topics">Start Learning</a>
+    <a class="button" href="#quiz">Take the Quiz</a>
+  </div>
+</section>
+
+<main class="container">
+  <section id="topics">
+    <h2>Chemistry Topics</h2>
+    <p class="muted">Build your understanding from the basic structure of matter to chemical reactions.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>⚛️ Atoms and Elements</h3>
+        <p>An atom contains protons and neutrons in its nucleus, with electrons occupying surrounding energy levels.</p>
+        <span class="formula">Atomic number = Number of protons</span>
+      </article>
+
+      <article class="card">
+        <h3>🧪 Periodic Table</h3>
+        <p>Elements are arranged by atomic number. Elements in the same group often have similar chemical properties.</p>
+        <span class="formula">Mass number = Protons + Neutrons</span>
+      </article>
+
+      <article class="card">
+        <h3>🔗 Chemical Bonding</h3>
+        <p>Ionic bonding involves electron transfer; covalent bonding involves shared pairs of electrons.</p>
+        <span class="formula">Example: H₂O, NaCl</span>
+      </article>
+
+      <article class="card">
+        <h3>⚗️ Chemical Reactions</h3>
+        <p>Reactants change into products. Chemical equations must conserve each type of atom.</p>
+        <span class="formula">Reactants → Products</span>
+      </article>
+
+      <article class="card">
+        <h3>🧴 Acids and Bases</h3>
+        <p>In aqueous solution, acids increase hydrogen-ion concentration. Bases can accept hydrogen ions.</p>
+        <span class="formula">pH = −log₁₀[H⁺]</span>
+      </article>
+
+      <article class="card">
+        <h3>💨 States of Matter</h3>
+        <p>Solids, liquids and gases differ in particle arrangement, movement and interactions.</p>
+        <span class="formula">Solid ⇄ Liquid ⇄ Gas</span>
+      </article>
+
+      <article class="card">
+        <h3>🧮 The Mole</h3>
+        <p>The mole is a unit for amount of substance. One mole contains approximately 6.022 × 10²³ specified particles.</p>
+        <span class="formula">n = m ÷ M</span>
+      </article>
+
+      <article class="card">
+        <h3>🌡️ Reaction Rates</h3>
+        <p>Temperature, concentration, surface area and catalysts can affect reaction rate.</p>
+        <span class="formula">Rate ≈ Amount changed ÷ Time</span>
+      </article>
+
+      <article class="card">
+        <h3>🔋 Chemical Energy</h3>
+        <p>Exothermic reactions release energy to the surroundings; endothermic reactions absorb energy.</p>
+        <span class="formula">Energy change: ΔH</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="atoms">
+    <h2>1. Atomic Structure</h2>
+    <p>
+      An element is defined by its number of protons. A neutral atom has equal
+      numbers of protons and electrons. Isotopes are atoms of the same element
+      with different numbers of neutrons.
+    </p>
+    <div class="example">
+      <strong>Worked example</strong>
+      <p>
+        A neutral sodium-23 atom has atomic number 11.
+        Protons = 11; electrons = 11; neutrons = 23 − 11 = 12.
+      </p>
+    </div>
+  </section>
+
+  <section id="equations">
+    <h2>2. Chemical Equations</h2>
+    <p>
+      A balanced chemical equation has the same number of atoms of each element
+      on both sides. Change coefficients in front of formulas to balance an
+      equation; do not change the subscripts inside chemical formulas.
+    </p>
+    <div class="example">
+      <strong>Worked example: formation of water</strong>
+      <p>Unbalanced: H₂ + O₂ → H₂O</p>
+      <p>Balanced: <strong>2H₂ + O₂ → 2H₂O</strong></p>
+      <p>Both sides contain four hydrogen atoms and two oxygen atoms.</p>
+    </div>
+  </section>
+
+  <section id="acids">
+    <h2>3. Acids, Bases and pH</h2>
+    <p>
+      At about 25°C, a pH below 7 is acidic, pH 7 is neutral, and a pH above 7
+      is basic (alkaline). The pH scale is logarithmic, so a one-unit difference
+      corresponds to a tenfold difference in hydrogen-ion concentration.
+    </p>
+    <div class="example">
+      <strong>Worked example</strong>
+      <p>
+        A solution with pH 3 has a hydrogen-ion concentration of approximately
+        10⁻³ mol/L, assuming the usual dilute aqueous-solution approximation.
+      </p>
+    </div>
+  </section>
+
+  <section id="formulas">
+    <h2>Chemistry Formula Library</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Amount of Substance</h3>
+        <span class="formula">n = m/M</span>
+        <p>n = amount in mol; m = mass in g; M = molar mass in g/mol.</p>
+      </article>
+      <article class="card">
+        <h3>Concentration</h3>
+        <span class="formula">c = n/V</span>
+        <p>For mol/L, use n in mol and solution volume V in litres.</p>
+      </article>
+      <article class="card">
+        <h3>Particle Number</h3>
+        <span class="formula">N = nNₐ</span>
+        <p>Nₐ ≈ 6.022 × 10²³ mol⁻¹.</p>
+      </article>
+      <article class="card">
+        <h3>Mass Concentration</h3>
+        <span class="formula">Concentration = Mass ÷ Volume</span>
+        <p>For example, g/L when mass is in grams and volume is in litres.</p>
+      </article>
+      <article class="card">
+        <h3>Density</h3>
+        <span class="formula">ρ = m/V</span>
+        <p>Mass divided by volume.</p>
+      </article>
+      <article class="card">
+        <h3>Percentage Yield</h3>
+        <span class="formula">Yield % = Actual ÷ Theoretical × 100</span>
+        <p>Compare the amount obtained with the theoretical amount.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="calculators">
+    <h2>Interactive Chemistry Calculators</h2>
+    <p class="muted">Enter valid measurements. Each calculator runs in your browser.</p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Moles Calculator</h3>
+        <p>Calculate amount of substance using n = m/M.</p>
+        <div class="field">
+          <label for="mass">Mass (g)</label>
+          <input id="mass" type="number" min="0" step="any" placeholder="e.g. 18">
+        </div>
+        <div class="field">
+          <label for="molarMass">Molar mass (g/mol)</label>
+          <input id="molarMass" type="number" min="0" step="any" placeholder="e.g. 18">
+        </div>
+        <button class="button" onclick="calculateMoles()">Calculate</button>
+        <div id="molesResult" class="result" aria-live="polite">Your answer appears here.</div>
+      </article>
+
+      <article class="card">
+        <h3>Molar Concentration</h3>
+        <p>Calculate c = n/V with volume in litres.</p>
+        <div class="field">
+          <label for="moles">Amount (mol)</label>
+          <input id="moles" type="number" min="0" step="any" placeholder="e.g. 0.5">
+        </div>
+        <div class="field">
+          <label for="volume">Volume (L)</label>
+          <input id="volume" type="number" min="0" step="any" placeholder="e.g. 2">
+        </div>
+        <button class="button" onclick="calculateConcentration()">Calculate</button>
+        <div id="concentrationResult" class="result" aria-live="polite">Your answer appears here.</div>
+      </article>
+
+      <article class="card">
+        <h3>Density Calculator</h3>
+        <p>Calculate density = mass ÷ volume.</p>
+        <div class="field">
+          <label for="densityMass">Mass (g)</label>
+          <input id="densityMass" type="number" min="0" step="any" placeholder="e.g. 50">
+        </div>
+        <div class="field">
+          <label for="densityVolume">Volume (cm³)</label>
+          <input id="densityVolume" type="number" min="0" step="any" placeholder="e.g. 10">
+        </div>
+        <button class="button" onclick="calculateDensity()">Calculate</button>
+        <div id="densityResult" class="result" aria-live="polite">Your answer appears here.</div>
+      </article>
+
+      <article class="card">
+        <h3>Percentage Yield</h3>
+        <p>Calculate actual yield as a percentage of theoretical yield.</p>
+        <div class="field">
+          <label for="actualYield">Actual yield (g)</label>
+          <input id="actualYield" type="number" min="0" step="any" placeholder="e.g. 8">
+        </div>
+        <div class="field">
+          <label for="theoreticalYield">Theoretical yield (g)</label>
+          <input id="theoreticalYield" type="number" min="0" step="any" placeholder="e.g. 10">
+        </div>
+        <button class="button" onclick="calculateYield()">Calculate</button>
+        <div id="yieldResult" class="result" aria-live="polite">Your answer appears here.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <h2>Chemistry Knowledge Quiz</h2>
+    <p class="muted">Answer all five questions, then check your score.</p>
+
+    <form id="chemistryQuiz">
+      <div class="question">
+        <p>1. Which particle has a positive electrical charge?</p>
+        <label><input type="radio" name="q1" value="a"> Electron</label>
+        <label><input type="radio" name="q1" value="b"> Proton</label>
+        <label><input type="radio" name="q1" value="c"> Neutron</label>
+      </div>
+
+      <div class="question">
+        <p>2. What is the atomic number of an element?</p>
+        <label><input type="radio" name="q2" value="a"> Number of neutrons</label>
+        <label><input type="radio" name="q2" value="b"> Protons plus neutrons</label>
+        <label><input type="radio" name="q2" value="c"> Number of protons</label>
+      </div>
+
+      <div class="question">
+        <p>3. Which is the balanced equation for forming water?</p>
+        <label><input type="radio" name="q3" value="a"> H₂ + O₂ → H₂O</label>
+        <label><input type="radio" name="q3" value="b"> 2H₂ + O₂ → 2H₂O</label>
+        <label><input type="radio" name="q3" value="c"> H₂ + 2O₂ → H₂O</label>
+      </div>
+
+      <div class="question">
+        <p>4. At about 25°C, a solution with pH 2 is:</p>
+        <label><input type="radio" name="q4" value="a"> Acidic</label>
+        <label><input type="radio" name="q4" value="b"> Neutral</label>
+        <label><input type="radio" name="q4" value="c"> Basic</label>
+      </div>
+
+      <div class="question">
+        <p>5. How many moles are in 18 g of a substance with molar mass 18 g/mol?</p>
+        <label><input type="radio" name="q5" value="a"> 2 mol</label>
+        <label><input type="radio" name="q5" value="b"> 18 mol</label>
+        <label><input type="radio" name="q5" value="c"> 1 mol</label>
+      </div>
+
+      <button class="button" type="submit">Check My Answers</button>
+      <button class="button" type="reset">Reset Quiz</button>
+    </form>
+
+    <div id="quizResult" class="result" aria-live="polite">Your score appears here.</div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 PELC Science AI — Learn, explore and discover.</p>
+    <a href="labs.html">Back to All Labs</a>
+  </div>
+</footer>
+
+<script>
+  "use strict";
+
+  function readInputs(ids, outputId) {
+    const values = ids.map(id => {
+      const field = document.getElementById(id);
+      if (field.value.trim() === "") return null;
+      const number = Number(field.value);
+      return Number.isFinite(number) ? number : null;
+    });
+
+    if (values.some(value => value === null)) {
+      showResult(outputId, "Please enter a valid number in every field.", true);
+      return null;
+    }
+
+    if (values.some(value => value < 0)) {
+      showResult(outputId, "Values cannot be negative.", true);
+      return null;
+    }
+
+    return values;
+  }
+
+  function showResult(id, message, error = false) {
+    const result = document.getElementById(id);
+    result.textContent = message;
+    result.classList.toggle("error", error);
+  }
+
+  function calculateMoles() {
+    const values = readInputs(["mass", "molarMass"], "molesResult");
+    if (!values) return;
+
+    const [mass, molarMass] = values;
+    if (molarMass === 0) {
+      showResult("molesResult", "Molar mass must be greater than zero.", true);
+      return;
+    }
+
+    showResult("molesResult", `Amount = ${(mass / molarMass).toFixed(4)} mol`);
+  }
+
+  function calculateConcentration() {
+    const values = readInputs(["moles", "volume"], "concentrationResult");
+    if (!values) return;
+
+    const [moles, volume] = values;
+    if (volume === 0) {
+      showResult("concentrationResult", "Volume must be greater than zero.", true);
+      return;
+    }
+
+    showResult("concentrationResult", `Concentration = ${(moles / volume).toFixed(4)} mol/L`);
+  }
+
+  function calculateDensity() {
+    const values = readInputs(["densityMass", "densityVolume"], "densityResult");
+    if (!values) return;
+
+    const [mass, volume] = values;
+    if (volume === 0) {
+      showResult("densityResult", "Volume must be greater than zero.", true);
+      return;
+    }
+
+    showResult("densityResult", `Density = ${(mass / volume).toFixed(4)} g/cm³`);
+  }
+
+  function calculateYield() {
+    const values = readInputs(["actualYield", "theoreticalYield"], "yieldResult");
+    if (!values) return;
+
+    const [actual, theoretical] = values;
+    if (theoretical === 0) {
+      showResult("yieldResult", "Theoretical yield must be greater than zero.", true);
+      return;
+    }
+
+    showResult("yieldResult", `Percentage yield = ${(actual / theoretical * 100).toFixed(2)}%`);
+  }
+
+  const answers = {
+    q1: "b",
+    q2: "c",
+    q3: "b",
+    q4: "a",
+    q5: "c"
+  };
+
+  const quiz = document.getElementById("chemistryQuiz");
+
+  quiz.addEventListener("submit", function(event) {
+    event.preventDefault();
+    let score = 0;
+
+    for (const [name, correctAnswer] of Object.entries(answers)) {
+      const selected = quiz.querySelector(`input[name="${name}"]:checked`);
+      if (selected && selected.value === correctAnswer) score++;
+    }
+
+    showResult(
+      "quizResult",
+      `Your score: ${score}/5. ` +
+      (score === 5 ? "Excellent work!" : "Review the topics and try again.")
+    );
+  });
+
+  quiz.addEventListener("reset", function() {
+    showResult("quizResult", "Your score appears here.");
+  });
+</script>
+</body>
+</html>
